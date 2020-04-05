@@ -5,6 +5,7 @@ var cors = require("cors");
 
 //var login = require("./routes/login");
 var users = require("./routes/users");
+var reuniao = require("./routes/reuniao");
 
 //var dashboard = require("./routes/login");
 var port = 3000;
@@ -15,7 +16,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use("/api", users)
+app.use('/api', reuniao)
+app.use('/api', users)
 
 app.listen(port, () => {
     console.log("[ Servidor on-line ] [Porta => " + port + "]")

@@ -1,30 +1,30 @@
 var express = require("express")
 var router = express.Router()
-var User = require("../model/Users")
+var Reuniao = require("../model/Reuniao")
 
 
 //get Alls usuarios
 
-router.get("/users", (req, res) => {
+router.get("/users/reunioes", (req, res) => {
 
-    User.findAll()
-        .then(users => {
-            res.json(users)
+    Reuniao.findAll()
+        .then(reuniao => {
+            res.json(reuniao)
         })
         .catch(err => {
             res.send("error ao carregar... mysql! " + err)
         })
 })
 
-router.get("/user/:id", (req, res) => {
+router.get("/users/reuniao/:id", (req, res) => {
 
-    User.findOne({
+    Reuniao.findOne({
         where: {
             id: req.params.id
         }
     })
-        .then(users => {
-            res.json(users)
+        .then(reuniao => {
+            res.json(reuniao)
         })
         .catch((err) => {
             res.send(err)
@@ -33,8 +33,8 @@ router.get("/user/:id", (req, res) => {
 
 //delete
 
-router.delete("/user/:id", (req, res) => {
-    User.destroy({
+router.delete("/users/reuniao/:id", (req, res) => {
+    Reuniao.destroy({
         where: {
             id: req.params.id
         }
@@ -49,17 +49,18 @@ router.delete("/user/:id", (req, res) => {
 
 
 //create
-router.post("/user", (req, res) => {
+router.post("/users/reuniao", (req, res) => {
 
-    if (!req.body.nome) {
+    /*if (!req.body.id_usuario) {
         res.status(400)
         res.json({
             error: "Bad Data!"
         })
-    } else {
-        User.create(req.body).then(() => { res.send("Usuário Adicionado.") })
-            .catch(err => { res.send("Error: " + err) })
-    }
+    } else {*/
+
+    User.create(req.body).then(() => { res.send("Usuário Adicionado.") })
+        .catch(err => { res.send("Error: " + err) })
+
 })
 
 
