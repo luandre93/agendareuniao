@@ -1,6 +1,8 @@
 <template>
-  <div class id="app">
-    <router-view />
+  <div class id="menu">
+    <div class id="app">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -16,3 +18,5 @@
   margin-top: 60px;
 }
 </style>
+
+
