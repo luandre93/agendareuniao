@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Menu from './Menu.vue'
 import router from '@/router'
 
 require("../node_modules/bootstrap/dist/css/bootstrap.css")
@@ -13,7 +12,3 @@ new Vue({
   router
 }).$mount('#app')
 
-new Vue({
-  render: h => h(Menu),
-  router
-}).$mount('#menu')

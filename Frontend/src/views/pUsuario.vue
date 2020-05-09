@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div id="todo-list-example" class="container">
+    <div id="todo-list-example">
       <div>
         <div class="col-md-10">
           <h1 class="text-left border-bottom">Lista de Usuários</h1>
