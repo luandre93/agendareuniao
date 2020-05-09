@@ -1,33 +1,39 @@
 
 <template>
   <div class="container-fluid" id="menu">
-    <nav class="navbar-expand-sm navbar-dark pb-2 pt-2 border-bottom">
-      <a class="navbar-brand bg-dark pl-2 pr-2" href="#">CoAgendei.</a>
+    <nav class="row navbar-expand-sm navbar-dark pb-2 pt-2 border-bottom shadow-sm">
+      <a class="navbar-brand bg-dark pl-2 pr-2 ml-2" href="#">CoAgendei.</a>
     </nav>
+
     <div class="row" id="app">
-      <nav class="col-md-2 d-none d-md-block sidebar">
+      <nav class="col d-none d-md-block sidebar shadow">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Dashboard</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Orders</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Products</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Customers</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Reports</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Integrations</a>
             </li>
           </ul>
         </div>
+        <!-- <div class="fixed mt-md-auto bottom-text-mark border-top">
+          <div class="mt-3 text-center">
+            <a class="text-muted">© 2020 CoAgendei.</a>
+          </div>
+        </div>-->
       </nav>
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <router-view />
@@ -45,18 +51,6 @@
   color: #2c3e50;
 }
 
-.list-item:hover {
-  color: #ffffff;
-  background-color: #343a40;
-}
-
-.list-item {
-  position: relative;
-  display: block;
-  padding-left: 20px;
-  background-color: #fff;
-}
-
 body {
   font-size: 0.875rem;
 }
@@ -72,19 +66,22 @@ body {
  */
 
 .sidebar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-align: left;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 100; /* Behind the navbar */
-  padding: 48px 0 0; /* Height of navbar */
+  padding: 50px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-sticky {
   position: relative;
   top: 0;
-  height: calc(100vh - 48px);
+  height: calc(94vh - 50px);
   padding-top: 0.5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -112,8 +109,9 @@ body {
 }
 
 .nav-link:hover {
-  color: #999;
-  background-color: #;
+  background-color: #f9f9f9;
+  color: #343a40;
+  border-bottom: 0.5px #dee2e6 !important;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -136,7 +134,7 @@ body {
 
 @media (min-width: 768px) {
   [role="main"] {
-    padding-top: 48px; /* Space for fixed navbar */
+    padding-top: 50px; /* Space for fixed navbar */
   }
 }
 
@@ -167,6 +165,9 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+.bottom-text-mark {
 }
 </style>
 

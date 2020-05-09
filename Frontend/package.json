@@ -11,8 +11,14 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.13.1",
     "core-js": "^3.6.4",
     "corejs": "^1.0.0",
+    "element-ui": "^2.13.1",
+    "jquery": "^3.5.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "roboto": "^0.8.2",
+    "typeface-roboto": "0.0.75",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6"
   },
