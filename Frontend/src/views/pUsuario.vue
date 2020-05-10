@@ -2,7 +2,7 @@
   <div class="app">
     <div id="todo-list-example">
       <div>
-        <div class="col-md-10">
+        <div class="col-md-11">
           <h1 class="text-left border-bottom">Lista de Usuários</h1>
           <form @submit.prevent="novoUsuario">
             <div class="form-row mt-4">
@@ -31,13 +31,11 @@
                   <option>Bloqueado</option>
                 </select>
               </div>
-            </div>
-            <div class="form-row col mt-2">
-              <div class="col mt-2">
-                <button type="submit" class="btn btn-block btn-primary">Enviar</button>
-              </div>
-              <div class="col mt-2">
-                <button type="submit" class="btn btn-block btn-primary">Atualizar</button>
+              <div class="col-auto mx-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary rounded-0 waves-effect waves-block px-5"
+                >Enviar</button>
               </div>
             </div>
           </form>
@@ -47,7 +45,7 @@
               <td>Nome</td>
               <td>Senha</td>
               <td class="text-center">Nivel</td>
-              <td class="text-center">Bloqueado</td>
+              <td class="text-center">Status</td>
               <td></td>
             </thead>
             <tbody>
@@ -58,11 +56,11 @@
                 <td class="text-center">{{todo.cancelado}}</td>
                 <td class="text-center">
                   <button
-                    class="btn btn-sm btn-info"
-                    v-on:click="editarUsuario(todo.nome,todo.id)"
+                    class="btn btn-sm btn-info rounded-0"
+                    v-on:click="editarUsuario(todo.id)"
                   >Editar</button>
                   <button
-                    class="btn btn-sm btn-danger ml-1"
+                    class="btn btn-sm btn-danger ml-1 rounded-0"
                     v-on:click="deletarUsuario(todo.id)"
                   >Delete</button>
                 </td>
@@ -106,12 +104,16 @@ export default {
       }
 
       usuarios
-        .addNovoUsuario(this.usuario)
+        .addUsuario(this.usuario)
         .then(() => {
+          this.usuario.nivel = "";
+          this.usuario.cancelado = "";
           this.listarUsuario();
         })
         .catch(() => {
-          alert("Erro ao adicionar " + this.usuario.id);
+          alert("Erro ao adicionar !");
+          this.usuario.nivel = "";
+          this.usuario.cancelado = "";
         });
     },
 
@@ -123,65 +125,19 @@ export default {
           this.listarUsuario();
         })
         .catch(() => {
-          alert("erro ao deletar usuario!");
+          alert("Erro ao deletar usuario!");
         });
     },
 
     listarUsuario() {
       usuarios.ListarUsuario().then(resposta => {
-        console.log(resposta);
+        console.log(resposta.data);
         this.todos = resposta.data;
       });
     }
   },
 
   computed: {}
-  /* getUsuarios() {
-      usuarios.get("users").then(
-        result => {
-          console.log(result.data);
-          this.todos = result.data;
-        },
-        error => {
-          console.error(error);
-        }
-      );
-    },*/
-  /*
-    addNovoUsuario() {
-      axios
-        .post("/user", { usuario_nome: this.usuarioNome })
-        .then((this.usuarioNome = ""), this.getUsuarios())
-        .catch(err => {
-          console.log(err);
-        });
-    },
-
-    editarUsuario(title, id) {
-      this.id = id;
-      this.usuarioNome = title;
-    },
-
-    atualizarUsuario() {
-      axios
-        .put("/user/" + this.id, { usuario_nome: this.usuarioNome })
-        .then(() => {
-          this.usuarioNome = "";
-          this.getUsuarios();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    deletarUsuario(id) {
-      axios.delete("/user/" + id).then(res => {
-        this.usuarioNome = "";
-        this.getUsuarios();
-        console.log(res);
-      });
-    }
-  }
-  */
 };
 </script>
 
