@@ -40,7 +40,7 @@ router.delete("/user/:id", (req, res) => {
         }
     })
         .then(() => {
-            res.send("Usuario Deleteado!")
+            res.send("Usuario Deletado!")
         })
         .catch(err => {
             res.send("error: " + err)

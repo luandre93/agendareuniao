@@ -63,7 +63,7 @@
                   >Editar</button>
                   <button
                     class="btn btn-sm btn-danger ml-1"
-                    v-on:click="deletarUsuario(todo.nome,todo.id)"
+                    v-on:click="deletarUsuario(todo.id)"
                   >Delete</button>
                 </td>
               </tr>
@@ -81,7 +81,7 @@ import usuarios from "@/services/usuarios";
 export default {
   data() {
     return {
-      usuario: { nome: "", senha: "", nivel: "", cancelado: "" },
+      usuario: { id: "", nome: "", senha: "", nivel: "", cancelado: "" },
       todos: []
     };
   },
@@ -111,7 +111,19 @@ export default {
           this.listarUsuario();
         })
         .catch(() => {
-          alert("Erro ao adicionar " + this.usuario);
+          alert("Erro ao adicionar " + this.usuario.id);
+        });
+    },
+
+    deletarUsuario(id) {
+      alert(this.usuario.nome);
+      usuarios
+        .delUsuario(id)
+        .then(() => {
+          this.listarUsuario();
+        })
+        .catch(() => {
+          alert("erro ao deletar usuario!");
         });
     },
 
