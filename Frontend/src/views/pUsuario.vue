@@ -2,30 +2,45 @@
   <div class="app">
     <div id="todo-list-example">
       <div>
-        <div class="col-md-11">
-          <h1 class="text-left border-bottom">Lista de Usuários</h1>
+        <div class="col-md-10">
+          <h1 class="text-left border-bottom">
+            <i class="fas fa-users mr-3"></i>Lista de Usuários
+          </h1>
           <form @submit.prevent="novoUsuario">
             <div class="form-row mt-4">
               <div class="col">
                 <input
                   type="text"
                   v-model="usuario.nome"
-                  class="form-control"
+                  class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
                   placeholder="Usuário"
                 />
               </div>
               <div class="col">
-                <input type="text" v-model="usuario.senha" class="form-control" placeholder="Senha" />
+                <input
+                  type="text"
+                  v-model="usuario.senha"
+                  class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                  placeholder="Senha"
+                />
               </div>
               <div class="col">
-                <select class="custom-select" type="text" v-model="usuario.nivel">
+                <select
+                  class="custom-select border-left-0 border-right-0 border-top-0 rounded-0"
+                  type="text"
+                  v-model="usuario.nivel"
+                >
                   <option disabled value>Escolha um nivel</option>
                   <option>Usuário</option>
                   <option>Administrador</option>
                 </select>
               </div>
               <div class="col">
-                <select class="custom-select" type="text" v-model="usuario.cancelado">
+                <select
+                  class="custom-select border-left-0 border-right-0 border-top-0 rounded-0"
+                  type="text"
+                  v-model="usuario.cancelado"
+                >
                   <option disabled value>Bloqueado/Liberado</option>
                   <option>Liberado</option>
                   <option>Bloqueado</option>
@@ -35,7 +50,7 @@
                 <button
                   type="submit"
                   class="btn btn-primary rounded-0 waves-effect waves-block px-5"
-                >Enviar</button>
+                >Adicionar</button>
               </div>
             </div>
           </form>
@@ -46,7 +61,8 @@
               <td>Senha</td>
               <td class="text-center">Nivel</td>
               <td class="text-center">Status</td>
-              <td></td>
+              <td class="text-center">Editar</td>
+              <td class="text-center">Excluir</td>
             </thead>
             <tbody>
               <tr v-for="todo in todos" :key="todo.id">
@@ -56,13 +72,19 @@
                 <td class="text-center">{{todo.cancelado}}</td>
                 <td class="text-center">
                   <button
-                    class="btn btn-sm btn-info rounded-0"
+                    class="btn btn-sm btn-info rounded-0 waves-effect waves-block"
                     v-on:click="editarUsuario(todo.id)"
-                  >Editar</button>
+                  >
+                    <i class="fas fa-user-edit"></i>
+                  </button>
+                </td>
+                <td class="text-center">
                   <button
-                    class="btn btn-sm btn-danger ml-1 rounded-0"
+                    class="btn btn-sm btn-danger ml-1 rounded-0 waves-effect waves-block"
                     v-on:click="deletarUsuario(todo.id)"
-                  >Delete</button>
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -133,6 +155,8 @@ export default {
       usuarios.ListarUsuario().then(resposta => {
         console.log(resposta.data);
         this.todos = resposta.data;
+        this.usuario.nivel = "";
+        this.usuario.cancelado = "";
       });
     }
   },
@@ -152,5 +176,11 @@ h1 {
 
 td {
   font-size: 10pt;
+}
+
+input:focus,
+button:focus,
+select:focus {
+  box-shadow: none;
 }
 </style>

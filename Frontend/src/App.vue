@@ -1,16 +1,16 @@
 
 <template>
   <div class="container-fluid" id="menu">
-    <nav class="row navbar-expand-sm navbar-dark pb-2 pt-2 border-bottom shadow-sm">
+    <nav class="navbar-expand-sm navbar-dark pb-2 pt-2 border-bottom shadow-sm bg-white fixed-top">
       <a class="navbar-brand bg-dark pl-2 pr-2 ml-2" href="#">CoAgendei.</a>
     </nav>
 
     <div class="row" id="app">
-      <nav class="col d-none d-md-block sidebar shadow">
+      <nav class="d-none d-md-block sidebar shadow">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Dashboard</a>
+              <a class="nav-link" href="#/dashboard">Dashboard</a>
             </li>
             <li class="nav-item border-bottom waves-effect">
               <a class="nav-link" href="#">Orders</a>
@@ -25,7 +25,7 @@
               <a class="nav-link" href="#">Reports</a>
             </li>
             <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Integrations</a>
+              <a class="nav-link" href="#/users">Usuarios</a>
             </li>
           </ul>
         </div>
@@ -35,7 +35,8 @@
           </div>
         </div>-->
       </nav>
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
         <router-view />
       </main>
     </div>
@@ -70,19 +71,16 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 50px 0 0; /* Height of navbar */
+  width: 12%;
+  height: 100%;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-sticky {
-  position: relative;
+  position: fixed;
   top: 0;
-  height: calc(94vh - 50px);
-  padding-top: 0.5rem;
+  height: calc(80vh - 50px);
+  padding-top: 5rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
@@ -165,9 +163,6 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
-}
-
-.bottom-text-mark {
 }
 </style>
 
