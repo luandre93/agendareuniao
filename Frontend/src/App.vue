@@ -9,23 +9,29 @@
       <nav class="d-none d-md-block sidebar shadow">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#/dashboard">Dashboard</a>
+            <li class="nav-item waves-effect">
+              <a class="nav-link" href="#/dashboard">
+                <span class="fa fa-list-alt fa-fw"></span>
+                <a class="ml-3">Painel de Reuniões</a>
+              </a>
             </li>
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Orders</a>
+            <li class="nav-item waves-effect">
+              <a class="nav-link" href="#">
+                <span class="fa fa-file-text-o fa-fw"></span>
+                <a class="ml-3">Relatórios</a>
+              </a>
             </li>
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Products</a>
+            <li class="nav-item waves-effect">
+              <a class="nav-link" href="#">
+                <span class="fa fa-users fa-fw"></span>
+                <a class="ml-3">Configurações</a>
+              </a>
             </li>
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Customers</a>
-            </li>
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#">Reports</a>
-            </li>
-            <li class="nav-item border-bottom waves-effect">
-              <a class="nav-link" href="#/users">Usuarios</a>
+            <li class="nav-item waves-effect">
+              <a class="nav-link" href="#/users">
+                <span class="fa fa-users fa-fw"></span>
+                <a class="ml-3">Usuários</a>
+              </a>
             </li>
           </ul>
         </div>
@@ -36,7 +42,7 @@
         </div>-->
       </nav>
 
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+      <main role="main" class="ml-lg-auto col-lg-10 px-5 mt-5">
         <router-view />
       </main>
     </div>
@@ -71,7 +77,8 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
   position: fixed;
-  width: 12%;
+  min-width: 220px;
+  width: 220px;
   height: 100%;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }

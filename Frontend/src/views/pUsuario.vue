@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <div id="todo-list-example">
+    <div>
       <div>
         <div class="col-md-10">
           <h1 class="text-left border-bottom">
-            <i class="fas fa-users mr-3"></i>Lista de Usuários
+            <i class="fa fa-users mr-3"></i>Lista de Usuários
           </h1>
           <form @submit.prevent="novoUsuario">
             <div class="form-row mt-4">
