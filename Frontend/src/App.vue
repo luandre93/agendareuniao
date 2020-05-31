@@ -1,14 +1,22 @@
 
 <template>
   <div class="container-fluid" id="menu">
-    <nav class="navbar-expand-sm navbar-dark pb-2 pt-2 border-bottom shadow-sm bg-white fixed-top">
-      <a class="navbar-brand bg-dark pl-2 pr-2 ml-2" href="#">CoAgendei.</a>
+    <nav class="navbar-expand-sm navbar-dark py-1 border-bottom shadow-sm bg-dark fixed-top">
+      <div class="navbar-brand pl-2 pr-2 border-0" style="width: 210px; margin-left:15px">
+        <a class="mx-5">CoAgendei.</a>
+      </div>
     </nav>
 
-    <div class="row" id="app">
-      <nav class="d-none d-md-block sidebar shadow">
+    <div id="app">
+      <nav class="d-lg-block d-none sidebar border-right border-left">
         <div class="sidebar-sticky">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column" style="width:208px">
+            <div class="col mb-2 shadow-sm border-0">
+              <div class="py-3">
+                <span class="fa fa-address-card fa-fw"></span>
+                <a class="font-weight-bolder ml-3 badge badge-info text-white p-2">Luandre Bernardi</a>
+              </div>
+            </div>
             <li class="nav-item waves-effect">
               <a class="nav-link" href="#/dashboard">
                 <span class="fa fa-list-alt fa-fw"></span>
@@ -27,7 +35,7 @@
                 <a class="ml-3">Configurações</a>
               </a>
             </li>
-            <li class="nav-item waves-effect">
+            <li class="nav-item waves-effect waves-block">
               <a class="nav-link" href="#/users">
                 <span class="fa fa-users fa-fw"></span>
                 <a class="ml-3">Usuários</a>
@@ -41,9 +49,15 @@
           </div>
         </div>-->
       </nav>
-
-      <main role="main" class="ml-lg-auto col-lg-10 px-5 mt-5">
-        <router-view />
+    </div>
+    <div role="root" style="margin-left: 230px; ">
+      <main role="main" class="ml-lg-auto col-auto mt-5 pb-3">
+        <div
+          class="shadow-sm border rounded pl-4 pr-4 pb-5 pt-2"
+          style="border-color: #eee!important"
+        >
+          <router-view />
+        </div>
       </main>
     </div>
   </div>
@@ -58,8 +72,25 @@
   color: #2c3e50;
 }
 
+.border-color-light {
+  border-color: #eee !important;
+}
+.font-custom {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
 body {
   font-size: 0.875rem;
+}
+
+@media (max-width: 991px) {
+  [role="root"] {
+    margin-left: 0 !important;
+  }
 }
 
 .feather {
@@ -68,6 +99,9 @@ body {
   vertical-align: text-bottom;
 }
 
+.shadow-custom {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
 /*
  * Sidebar
  */
@@ -77,26 +111,18 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
   position: fixed;
-  min-width: 220px;
-  width: 220px;
+  min-width: 210px;
+  width: 210px;
   height: 100%;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-sticky {
   position: fixed;
   top: 0;
   height: calc(80vh - 50px);
-  padding-top: 5rem;
+  padding-top: 3rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
 }
 
 .sidebar .nav-link {
@@ -110,13 +136,12 @@ body {
 }
 
 .sidebar .nav-link.active {
-  color: #007bff;
+  color: #007bff2f;
 }
 
 .nav-link:hover {
-  background-color: #f9f9f9;
-  color: #343a40;
-  border-bottom: 0.5px #dee2e6 !important;
+  background-color: #17a2b8;
+  color: #fff;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -125,7 +150,7 @@ body {
 }
 
 .sidebar-heading {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
 }
 
@@ -134,12 +159,17 @@ body {
  */
 
 [role="main"] {
-  padding-top: 50px; /* Space for fixed navbar */
+  padding-top: 35px; /* Space for fixed navbar */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 766px) {
   [role="main"] {
-    padding-top: 50px; /* Space for fixed navbar */
+    padding-top: 35px; /* Space for fixed navbar */
+  }
+}
+@media (min-width: 992px) {
+  [role="main"] {
+    width: 100% !important;
   }
 }
 
@@ -170,6 +200,13 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+input:focus,
+button:focus,
+select:focus {
+  background-color: #fff;
+  box-shadow: none !important;
 }
 </style>
 
