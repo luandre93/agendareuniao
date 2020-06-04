@@ -3,41 +3,43 @@
     <div class="row">
       <div class="col mx-0 px-0 mt-1">
         <!-- Cabeçalho -->
-        <div class="border-bottom mb-4 border-color-light">
+        <div class="border-bottom mb-2 border-color-light">
           <h3 class="text-left font-custom px-2">
             <i class="fa fa-list-alt mr-3"></i>Painel de Reuniões
           </h3>
         </div>
 
-        <div class="col">
+        <div class="col-auto px-0">
           <!-- Procurar -->
-          <div class>
-            <div class="form-inline float-right mb-4">
-              <div class="form-group border-bottom float-right bg-white mr-3">
-                <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
-                <input
-                  type="text"
-                  class="col form-control bg-white border-0 pl-3 pr-3"
-                  aria-describedby="helpId"
-                  placeholder="Procurar..."
-                  style="width: 200px"
-                />
-              </div>
-              <button class="btn btn-success waves-effect rounded-0 mr-2">OK</button>
+          <div class="col float-right">
+            <div class="form-row mr-3 float-right">
+              <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
+              <input
+                type="text"
+                class="form-control bg-white border-0 pl-3 pr-3"
+                aria-describedby="helpId"
+                placeholder="Procurar..."
+                style="width: 200px"
+              />
+              <button class="btn btn-success waves-effect rounded-0">OK</button>
             </div>
+
             <!--- Botão Adicionar -->
-            <div class="form-inline mb-4 float-left">
-              <div class="form-group">
-                <button class="btn btn-success waves-effect rounded-0">Adicionar Reunião</button>
-              </div>
+            <div class="form-row float-left ml-2">
+              <button
+                class="btn btn-success waves-effect rounded-0"
+                data-toggle="modal"
+                data-target="#exampleModalCenter"
+              >Adicionar Reunião</button>
             </div>
           </div>
 
+          <div class="py-4 mx-0 border-bottom border-color-light"></div>
           <!--- Inicio dos Cartões -->
-          <div class="row col px-2">
+          <div class="row col mx-1 mt-4">
             <div
               role="card"
-              class="card shadow-sm mx-2 border-color-light"
+              class="card shadow-sm border-color-light mx-0"
               style="width: 19rem; height: 20rem;"
             >
               <div class="card-header p-1 border-0">
@@ -56,6 +58,106 @@
             </div>
           </div>
           <!--- Fim dos Cartões -->
+
+          <!-- Modal Adicionar reuniao -->
+          <div
+            class="modal fade bd-example-modal-lg"
+            id="exampleModalCenter"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalCenterTitle">
+                    <span class="fa fa-edit fa-lg fw"></span> Adicionar Reunião
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form @submit.prevent="novaReuniao">
+                    <div class="form-row">
+                      <div class="col-auto p-2">
+                        <span class="fa fa-comments-o fa-lg fa-fw"></span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="text"
+                          v-model="reuniao.titulo"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0 mb-2"
+                          placeholder="Titulo"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="col-auto p-2">
+                        <span class="fa fa-bars fa-lg fa-fw"></span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="text"
+                          v-model="reuniao.categoria"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder="Categoria"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-row mt-2">
+                      <div class="col-auto p-2">
+                        <span class="fa fa-map-o fa-lg fa-fw"></span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="text"
+                          v-model="reuniao.localizacao"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder="Localização"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row mt-2">
+                      <div class="col-auto py-2">
+                        <span>Inicio</span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="time"
+                          v-model="reuniao.hora_inicio"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                      <div class="col-auto py-2">
+                        <span>Final</span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="time"
+                          v-model="reuniao.hora_final"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder="Localização"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-block btn-primary">Publicar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Fim Modal -->
         </div>
       </div>
     </div>
@@ -63,13 +165,44 @@
 </template>
 
 <script>
+import reunioes from "@/services/reunioes";
+
 export default {
   data() {
-    return {};
+    return {
+      reuniao: {
+        id: "",
+        titulo: "",
+        categoria: "",
+        localizacao: "",
+        hora_inicio: "",
+        hora_final: ""
+      },
+      todos: []
+    };
   },
-  mounted() {},
+  mounted() {
+    this.listarReunioes();
+  },
 
-  methods: {},
+  methods: {
+    novaReuniao() {
+      reunioes
+        .addReuniao(this.reuniao)
+        .then(() => {
+          this.listarUsuario();
+        })
+        .catch(() => {
+          alert("Erro ao adicionar !");
+        });
+    },
+    listarReunioes() {
+      reunioes.ListarReuniao().then(resposta => {
+        console.log(resposta.data);
+        this.todos = resposta.data;
+      });
+    }
+  },
 
   computed: {}
 };

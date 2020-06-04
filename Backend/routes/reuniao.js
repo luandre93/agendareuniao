@@ -12,7 +12,7 @@ router.get("/users/reunioes", (req, res) => {
             res.json(reuniao)
         })
         .catch(err => {
-            res.send("error ao carregar... mysql! " + err)
+            res.send("erro ao carregar... Banco de dados! " + err)
         })
 })
 
@@ -40,7 +40,7 @@ router.delete("/users/reuniao/:id", (req, res) => {
         }
     })
         .then(() => {
-            res.send("Usuario Deleteado!")
+            res.send("Reuniao Deleteado!")
         })
         .catch(err => {
             res.send("error: " + err)
@@ -58,7 +58,7 @@ router.post("/users/reuniao", (req, res) => {
         })
     } else {*/
 
-    User.create(req.body).then(() => { res.send("Usuário Adicionado.") })
+    User.create(req.body).then(() => { res.send("Reunião Adicionado.") })
         .catch(err => { res.send("Error: " + err) })
 
 })
@@ -66,18 +66,20 @@ router.post("/users/reuniao", (req, res) => {
 
 //update
 
-router.put("/user/:id", (req, res) => {
-    if (!req.body.nome) {
+router.put("/users/reuniao/:id", (req, res) => {
+    if (!req.body.titulo) {
         res.status(400)
         res.json({
             error: "Bad Data"
         })
     } else {
         User.update({
-            nome: req.body.nome,
-            senha: req.body.senha,
-            nivel: req.body.nivel,
-            cancelado: req.body.cancelado
+            titulo: req.body.titulo,
+            categoria: req.body.categoria,
+            localizacao: req.body.localizacao,
+            data: req.body.data,
+            hora_inicial: req.body.hora_inicial,
+            hora_final: req.body.hora_final
         },
             {
                 where: {

@@ -31,7 +31,7 @@
             </li>
             <li class="nav-item waves-effect">
               <a class="nav-link" href="#">
-                <span class="fa fa-users fa-fw"></span>
+                <span class="fa fa-exchange fa-fw"></span>
                 <a class="ml-3">Configurações</a>
               </a>
             </li>

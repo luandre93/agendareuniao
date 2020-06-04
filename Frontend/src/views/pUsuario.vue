@@ -74,18 +74,18 @@
               <td class="text-center">{{todo.cancelado}}</td>
               <td class="text-center">
                 <button
-                  class="btn btn-sm btn-info rounded-0 waves-effect waves-block"
+                  class="btn btn-sm btn-info rounded-0 waves-effect"
                   v-on:click="editarUsuario(todo.id)"
                 >
-                  <i class="fas fa-user-edit"></i>
+                  <i class="fa fa-edit"></i>
                 </button>
               </td>
               <td class="text-center">
                 <button
-                  class="btn btn-sm btn-danger ml-1 rounded-0 waves-effect waves-block"
+                  class="btn btn-sm btn-danger ml-1 rounded-0 waves-effect"
                   v-on:click="deletarUsuario(todo.id)"
                 >
-                  <i class="far fa-trash-alt"></i>
+                  <i class="fa fa-trash-o"></i>
                 </button>
               </td>
             </tr>
