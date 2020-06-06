@@ -35,11 +35,7 @@
                 <a class="ml-3">Configurações</a>
               </router-link>
             </li>
-            <li
-              class="nav-item waves-effect waves-block nav-toggle"
-              :class="{'is-active': isActive}"
-              @click="toggleNav"
-            >
+            <li class="nav-item waves-effect waves-block">
               <router-link class="nav-link" to="/users">
                 <span class="fa fa-users fa-fw"></span>
                 <a class="ml-3">Usuários</a>
@@ -78,14 +74,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return { isActive: false };
-  },
-  methods: {}
-};
-</script>
 
 
 <style>
