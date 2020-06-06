@@ -10,7 +10,7 @@
     <div id="app">
       <nav class="d-lg-block d-none sidebar border-right border-left">
         <div class="sidebar-sticky">
-          <ul class="nav flex-column" style="width:208px">
+          <ul class="nav flex-column" style="width:208px" id="menu">
             <div class="col mb-2 shadow-sm border-0">
               <div class="py-3">
                 <span class="fa fa-address-card fa-fw"></span>
@@ -18,28 +18,32 @@
               </div>
             </div>
             <li class="nav-item waves-effect">
-              <a class="nav-link" href="#/dashboard">
+              <router-link class="nav-link" to="/dashboard">
                 <span class="fa fa-list-alt fa-fw"></span>
                 <a class="ml-3">Painel de Reuniões</a>
-              </a>
+              </router-link>
             </li>
             <li class="nav-item waves-effect">
-              <a class="nav-link" href="#">
+              <router-link class="nav-link" to="/">
                 <span class="fa fa-file-text-o fa-fw"></span>
                 <a class="ml-3">Relatórios</a>
-              </a>
+              </router-link>
             </li>
             <li class="nav-item waves-effect">
-              <a class="nav-link" href="#">
+              <router-link class="nav-link" to="/">
                 <span class="fa fa-exchange fa-fw"></span>
                 <a class="ml-3">Configurações</a>
-              </a>
+              </router-link>
             </li>
-            <li class="nav-item waves-effect waves-block">
-              <a class="nav-link" href="#/users">
+            <li
+              class="nav-item waves-effect waves-block nav-toggle"
+              :class="{'is-active': isActive}"
+              @click="toggleNav"
+            >
+              <router-link class="nav-link" to="/users">
                 <span class="fa fa-users fa-fw"></span>
                 <a class="ml-3">Usuários</a>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -49,9 +53,20 @@
           </div>
         </div>-->
       </nav>
+      <!-- Calendario-->
+      <nav class="calendar d-lg-block d-none shadow-sm border rounded float-right">
+        <div class="border-bottom px-2">
+          <div class="text-left font-weight-bold p-2">
+            <span class="fa fa-calendar-o fa-fw mr-2"></span>
+            <a class>Calendário</a>
+          </div>
+        </div>
+      </nav>
+
+      <!--fim Calendario-->
     </div>
-    <div role="root" style="margin-left: 230px; ">
-      <main role="main" class="ml-lg-auto col-auto mt-5 pb-3">
+    <div role="root" style="margin-left:230px; margin-right:250px; ">
+      <main role="main" class="ml-lg-auto col-auto mt-5 pb-3 bg-white">
         <div
           class="shadow-sm border rounded pl-4 pr-4 pb-5 pt-2"
           style="border-color: #eee!important"
@@ -62,6 +77,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return { isActive: false };
+  },
+  methods: {}
+};
+</script>
+
 
 <style>
 #app {
@@ -90,6 +115,7 @@ body {
 @media (max-width: 991px) {
   [role="root"] {
     margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
@@ -100,7 +126,7 @@ body {
 }
 
 .shadow-custom {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
 }
 /*
  * Sidebar
@@ -114,6 +140,19 @@ body {
   min-width: 210px;
   width: 210px;
   height: 100%;
+}
+
+.calendar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-align: left;
+  position: fixed;
+  min-width: 240px;
+  width: 240px;
+  height: 100%;
+  right: 15px;
+  margin-top: 35px;
+  height: 15rem;
 }
 
 .sidebar-sticky {
@@ -136,12 +175,12 @@ body {
 }
 
 .sidebar .nav-link.active {
-  color: #007bff2f;
+  color: #007bff67;
 }
 
 .nav-link:hover {
-  background-color: #17a2b8;
-  color: #fff;
+  background-color: #177db86e;
+  color: #333;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -152,6 +191,11 @@ body {
 .sidebar-heading {
   font-size: 0.8rem;
   text-transform: uppercase;
+}
+
+nav .router-link-active {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 700;
 }
 
 /*
@@ -170,6 +214,8 @@ body {
 @media (min-width: 992px) {
   [role="main"] {
     width: 100% !important;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 

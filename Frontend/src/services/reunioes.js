@@ -10,7 +10,7 @@ export default {
         return http.delete("users/reuniao/" + id)
     },
     addReuniao: (reuniao) => {
-        return http.post("reuniao", reuniao)
+        return http.post("users/reuniao", reuniao)
     }
 
 }

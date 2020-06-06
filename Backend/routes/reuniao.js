@@ -58,7 +58,7 @@ router.post("/users/reuniao", (req, res) => {
         })
     } else {*/
 
-    User.create(req.body).then(() => { res.send("Reunião Adicionado.") })
+    Reuniao.create(req.body).then(() => { res.send("Reunião Adicionado.") })
         .catch(err => { res.send("Error: " + err) })
 
 })
@@ -78,6 +78,7 @@ router.put("/users/reuniao/:id", (req, res) => {
             categoria: req.body.categoria,
             localizacao: req.body.localizacao,
             data: req.body.data,
+            cancelada: req.body.cancelada,
             hora_inicial: req.body.hora_inicial,
             hora_final: req.body.hora_final
         },

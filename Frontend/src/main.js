@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import 'typeface-roboto';
-
 import 'jquery/src/jquery.js'
 import 'bootstrap/dist/js/waves-effect.js'
 import 'bootstrap/dist/js/bootstrap.js'

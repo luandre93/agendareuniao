@@ -7,7 +7,6 @@
             <i class="fa fa-users mr-3"></i>Lista de Usuários
           </h3>
         </div>
-
         <form @submit.prevent="novoUsuario">
           <div class="form-row mt-4">
             <div class="col">
@@ -56,11 +55,11 @@
             </div>
           </div>
         </form>
-
         <table class="table table-sm mt-4">
           <thead class="text-left bg-light">
-            <td>Nome</td>
-            <td>Senha</td>
+            <td class="text-center">ID</td>
+            <td class="text-center">Nome</td>
+            <td class="text-center">Senha</td>
             <td class="text-center">Nivel</td>
             <td class="text-center">Status</td>
             <td class="text-center">Editar</td>
@@ -68,8 +67,9 @@
           </thead>
           <tbody>
             <tr v-for="todo in todos" :key="todo.id">
-              <td class="text-left">{{todo.nome}}</td>
-              <td class="text-left">{{todo.senha}}</td>
+              <td class="text-center">{{todo.id}}</td>
+              <td class="text-center">{{todo.nome}}</td>
+              <td class="text-center">{{todo.senha}}</td>
               <td class="text-center">{{todo.nivel}}</td>
               <td class="text-center">{{todo.cancelado}}</td>
               <td class="text-center">

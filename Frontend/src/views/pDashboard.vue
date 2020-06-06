@@ -13,53 +13,69 @@
           <!-- Procurar -->
           <div class="col float-right">
             <div class="form-row mr-3 float-right">
-              <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
-              <input
-                type="text"
-                class="form-control bg-white border-0 pl-3 pr-3"
-                aria-describedby="helpId"
-                placeholder="Procurar..."
-                style="width: 200px"
-              />
-              <button class="btn btn-success waves-effect rounded-0">OK</button>
+              <div class="form-row border-bottom">
+                <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
+                <input
+                  type="text"
+                  class="form-control bg-white border-0 pl-3 pr-3"
+                  aria-describedby="helpId"
+                  placeholder="Procurar..."
+                  style="width: 200px"
+                />
+              </div>
             </div>
 
             <!--- Botão Adicionar -->
-            <div class="form-row float-left ml-2">
+            <div class="form-row float-right mr-4">
               <button
-                class="btn btn-success waves-effect rounded-0"
+                class="btn btn-outline-success border waves-effect"
                 data-toggle="modal"
                 data-target="#exampleModalCenter"
-              >Adicionar Reunião</button>
+              >Publicar Reunião</button>
             </div>
           </div>
 
           <div class="py-4 mx-0 border-bottom border-color-light"></div>
           <!--- Inicio dos Cartões -->
-          <div class="row col mx-1 mt-4">
-            <div
-              role="card"
-              class="card shadow-sm border-color-light mx-0"
-              style="width: 19rem; height: 20rem;"
-            >
-              <div class="card-header p-1 border-0">
-                <span class="fa fa-comments-o fa-2x text-accent-1 fa-fw"></span>
-                <a
-                  class="px-2 font-weight-bold text-accent-1 align-text-bottom"
-                  type="button"
-                >Reunião de Teste</a>
-              </div>
-              <div class="card-body"></div>
-              <div class="card-footer bg-white border-0">
-                <p class="card-text text-left text-success text-right" style="font-size:12px">
-                  <i class="fa fa-clock-o pr-2"></i>07/24/2018
-                </p>
+
+          <div class="mx-4">
+            <div class="row">
+              <div v-for="todo in todos" :key="todo.id">
+                <div
+                  class="card m-3 shadow-sm border-top-0 border rounded px-1"
+                  style="width: 18rem; height: 20rem; border-color:#ebeef5!important"
+                >
+                  <div
+                    class="px-2 form-row border card-header rounded"
+                    style="border-color:#ebeef5!important"
+                  >
+                    <div class="form-row col">
+                      <div class="col">
+                        <span class="fa fa-comments-o fa-lg fa-fw"></span>
+                        <a class="ml-2">{{todo.titulo}}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="col-auto">
+                      <span class="fa fa-comments-o fa-lg fa-fw"></span>
+                      <a class="ml-2">{{todo.titulo}}</a>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-white border-0">
+                    <small class="text-success float-right">
+                      <span class="fa fa-clock-o fa-fw"></span>
+                      {{todo.data}}
+                    </small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <!--- Fim dos Cartões -->
 
           <!-- Modal Adicionar reuniao -->
+
           <div
             class="modal fade bd-example-modal-lg"
             id="exampleModalCenter"
@@ -69,18 +85,33 @@
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalCenterTitle">
-                    <span class="fa fa-edit fa-lg fw"></span> Adicionar Reunião
-                  </h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form @submit.prevent="novaReuniao">
-                    <div class="form-row">
+              <div class="modal-content rounded-0">
+                <form @submit.prevent="novaReuniao">
+                  <div class="modal-header border-0">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">
+                      <span class="fa fa-edit fa-lg fw"></span> Adicionar Reunião
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="form-row mt-2 p-3">
+                      <div class="col-auto p-2">
+                        <span class="fa fa-user fa-lg fa-fw"></span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="text"
+                          v-model="reuniao.id_usuario"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder="id_usuario"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row mt-2 p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-comments-o fa-lg fa-fw"></span>
                       </div>
@@ -94,7 +125,7 @@
                         />
                       </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-bars fa-lg fa-fw"></span>
                       </div>
@@ -109,7 +140,7 @@
                       </div>
                     </div>
 
-                    <div class="form-row mt-2">
+                    <div class="form-row p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-map-o fa-lg fa-fw"></span>
                       </div>
@@ -123,14 +154,28 @@
                         />
                       </div>
                     </div>
-                    <div class="form-row mt-2">
+                    <div class="form-row p-3">
+                      <div class="col-auto p-2">
+                        <span class="fa fa-calendar fa-lg fa-fw"></span>
+                      </div>
+                      <div class="col">
+                        <input
+                          type="date"
+                          v-model="reuniao.data"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                          placeholder="Localização"
+                          aria-describedby="helpId"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-row p-3">
                       <div class="col-auto py-2">
-                        <span>Inicio</span>
+                        <span class>Inicio</span>
                       </div>
                       <div class="col">
                         <input
                           type="time"
-                          v-model="reuniao.hora_inicio"
+                          v-model="reuniao.hora_inicial"
                           class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
                           placeholder
                           aria-describedby="helpId"
@@ -149,14 +194,19 @@
                         />
                       </div>
                     </div>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-block btn-primary">Publicar</button>
-                </div>
+                  </div>
+                  <div class="modal-footer border-0">
+                    <button
+                      type="submit"
+                      class="btn btn-block btn-primary"
+                      v-on:click="redirect('/')"
+                    >Publicar</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
+
           <!-- Fim Modal -->
         </div>
       </div>
@@ -172,11 +222,14 @@ export default {
     return {
       reuniao: {
         id: "",
+        id_usuario: "",
         titulo: "",
+        data: "",
         categoria: "",
         localizacao: "",
-        hora_inicio: "",
-        hora_final: ""
+        hora_inicial: "",
+        hora_final: "",
+        cancelada: ""
       },
       todos: []
     };
@@ -186,11 +239,16 @@ export default {
   },
 
   methods: {
+    redirect(link) {
+      window.location.href = link;
+    },
+
     novaReuniao() {
       reunioes
         .addReuniao(this.reuniao)
         .then(() => {
-          this.listarUsuario();
+          alert(this.reuniao.id_usuario);
+          //  this.listarReunioes();
         })
         .catch(() => {
           alert("Erro ao adicionar !");
