@@ -43,7 +43,7 @@
               <div v-for="todo in todos" :key="todo.id">
                 <div
                   class="card m-3 shadow-sm border-top-0 border rounded px-1"
-                  style="width: 18rem; height: 20rem; border-color:#ebeef5!important"
+                  style="width: 21rem; height: 20rem; border-color:#ebeef5!important"
                 >
                   <div
                     class="px-2 form-row border card-header rounded"
@@ -52,15 +52,29 @@
                     <div class="form-row col">
                       <div class="col">
                         <span class="fa fa-comments-o fa-lg fa-fw"></span>
-                        <a class="ml-2">{{todo.titulo}}</a>
+                        <a class="ml-2 font-weight-bold">{{todo.titulo}}</a>
                       </div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="col-auto">
-                      <span class="fa fa-comments-o fa-lg fa-fw"></span>
-                      <a class="ml-2">{{todo.titulo}}</a>
-                    </div>
+                  <div class="card-body p-3">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                        <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
+                        <a class="text-center">{{todo.categoria}}</a>
+                      </li>
+                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                        <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
+                        <a class="text-center">{{todo.localizacao}}</a>
+                      </li>
+                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                        <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
+                        <a class="text-center">{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
+                      </li>
+                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                        <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
+                        <a class="text-center">{{todo.data}}</a>
+                      </li>
+                    </ul>
                   </div>
                   <div class="card-footer bg-white border-0">
                     <small class="text-success float-right">
@@ -199,7 +213,7 @@
                     <button
                       type="submit"
                       class="btn btn-block btn-primary"
-                      v-on:click="redirect('/')"
+                      @click="redirect('/')"
                     >Publicar</button>
                   </div>
                 </form>
@@ -247,7 +261,6 @@ export default {
       reunioes
         .addReuniao(this.reuniao)
         .then(() => {
-          alert(this.reuniao.id_usuario);
           //  this.listarReunioes();
         })
         .catch(() => {
@@ -256,7 +269,6 @@ export default {
     },
     listarReunioes() {
       reunioes.ListarReuniao().then(resposta => {
-        console.log(resposta.data);
         this.todos = resposta.data;
       });
     }
