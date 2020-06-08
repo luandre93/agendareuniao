@@ -5,6 +5,7 @@ import pDashboard from '@/views/pDashboard'
 
 Vue.use(Router)
 
+
 var routes = [
     { name: 'home', path: '/', redirect: { name: 'pDashboard', path: '/dashboard', component: pDashboard } },
     { name: 'pUsuario', path: '/users', component: pUsuario }

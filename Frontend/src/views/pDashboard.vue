@@ -9,7 +9,7 @@
           </h3>
         </div>
 
-        <div class="col-auto px-0">
+        <div class="col-auto">
           <!-- Procurar -->
           <div class="col float-right">
             <div class="form-row mr-3 float-right">
@@ -26,7 +26,7 @@
             </div>
 
             <!--- Botão Adicionar -->
-            <div class="form-row float-right mr-4">
+            <div class="form-row float-left mr-4">
               <button
                 class="btn btn-outline-success border waves-effect"
                 data-toggle="modal"
@@ -38,54 +38,57 @@
           <div class="py-4 mx-0 border-bottom border-color-light"></div>
           <!--- Inicio dos Cartões -->
 
-          <div class="mx-4">
-            <div class="row">
-              <div v-for="todo in todos" :key="todo.id">
+          <div class="row" v-if="mostrarCards">
+            <div v-for="todo in todos" :key="todo.id" class="col-auto px-2">
+              <div
+                class="card shadow-sm border-top-0 border rounded px-1 m-3"
+                role="card"
+                style="width: 21rem; border-color:#ebeef5!important"
+              >
                 <div
-                  class="card m-3 shadow-sm border-top-0 border rounded px-1"
-                  style="width: 21rem; height: 20rem; border-color:#ebeef5!important"
+                  class="px-2 form-row border card-header rounded"
+                  style="border-color:#ebeef5!important"
                 >
-                  <div
-                    class="px-2 form-row border card-header rounded"
-                    style="border-color:#ebeef5!important"
-                  >
-                    <div class="form-row col">
-                      <div class="col">
-                        <span class="fa fa-comments-o fa-lg fa-fw"></span>
-                        <a class="ml-2 font-weight-bold">{{todo.titulo}}</a>
-                      </div>
+                  <div class="form-row mx-2">
+                    <div class="col">
+                      <span class="fa fa-comments-o fa-lg fa-fw"></span>
+                      <a class="ml-2 font-weight-bold">{{todo.titulo}}</a>
                     </div>
                   </div>
-                  <div class="card-body p-3">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
-                        <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
-                        <a class="text-center">{{todo.categoria}}</a>
-                      </li>
-                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
-                        <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
-                        <a class="text-center">{{todo.localizacao}}</a>
-                      </li>
-                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
-                        <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
-                        <a class="text-center">{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
-                      </li>
-                      <li class="list-group-item border-bottom py-2 px-1 pb-2">
-                        <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
-                        <a class="text-center">{{todo.data}}</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="card-footer bg-white border-0">
-                    <small class="text-success float-right">
-                      <span class="fa fa-clock-o fa-fw"></span>
-                      {{todo.data}}
-                    </small>
-                  </div>
+                </div>
+                <div class="card-body p-3">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                      <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
+                      <a class="text-center">{{todo.categoria}}</a>
+                    </li>
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                      <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
+                      <a class="text-center">{{todo.localizacao}}</a>
+                    </li>
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                      <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
+                      <a class="text-center">{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
+                    </li>
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                      <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
+                      <a class="text-center">{{todo.data}}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer bg-white border-0">
+                  <small class="text-success float-right">
+                    <span class="fa fa-clock-o fa-fw"></span>
+                    {{todo.data}}
+                  </small>
                 </div>
               </div>
             </div>
           </div>
+          <div v-else>
+            <center class="h4 my-5">Olá, não existe reuniões agendadas.</center>
+          </div>
+
           <!--- Fim dos Cartões -->
 
           <!-- Modal Adicionar reuniao -->
@@ -105,13 +108,15 @@
                     <h5 class="modal-title" id="exampleModalCenterTitle">
                       <span class="fa fa-edit fa-lg fw"></span> Adicionar Reunião
                     </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button
+                      type="button"
+                      class="btn waves-effect font-weight-bold border-0"
+                      data-dismiss="modal"
+                    >X</button>
                   </div>
 
-                  <div class="modal-body">
-                    <div class="form-row mt-2 p-3">
+                  <div class="modal-body p-0">
+                    <div class="form-row p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-user fa-lg fa-fw"></span>
                       </div>
@@ -210,11 +215,7 @@
                     </div>
                   </div>
                   <div class="modal-footer border-0">
-                    <button
-                      type="submit"
-                      class="btn btn-block btn-primary"
-                      @click="redirect('/')"
-                    >Publicar</button>
+                    <button type="submit" class="btn btn-block waves-effect btn-primary">Publicar</button>
                   </div>
                 </form>
               </div>
@@ -229,11 +230,14 @@
 </template>
 
 <script>
+import $ from "jquery";
 import reunioes from "@/services/reunioes";
 
 export default {
   data() {
     return {
+      showModal: false,
+      mostrarCards: true,
       reuniao: {
         id: "",
         id_usuario: "",
@@ -253,15 +257,13 @@ export default {
   },
 
   methods: {
-    redirect(link) {
-      window.location.href = link;
-    },
-
+    limparCampos() {},
     novaReuniao() {
       reunioes
         .addReuniao(this.reuniao)
         .then(() => {
-          //  this.listarReunioes();
+          this.listarReunioes();
+          this.save;
         })
         .catch(() => {
           alert("Erro ao adicionar !");
@@ -270,11 +272,19 @@ export default {
     listarReunioes() {
       reunioes.ListarReuniao().then(resposta => {
         this.todos = resposta.data;
+        this.todos.length == 0
+          ? (this.mostrarCards = false)
+          : (this.mostrarCards = true);
       });
     }
   },
 
-  computed: {}
+  computed: {
+    save() {
+      $(".modal").modal("hide");
+      return this.$emit("save");
+    }
+  }
 };
 </script>
 
@@ -289,7 +299,8 @@ h1 {
 
 @media (max-width: 991px) {
   [role="card"] {
-    width: 100% !important;
+    min-width: 100% !important;
+    margin-left: 29px !important;
   }
 }
 
