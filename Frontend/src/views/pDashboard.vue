@@ -54,6 +54,13 @@
                       <span class="fa fa-comments-o fa-lg fa-fw"></span>
                       <a class="ml-2 font-weight-bold">{{todo.titulo}}</a>
                     </div>
+                    <div class="col-auto">
+                      <router-link
+                        class="float-right"
+                        tag="a"
+                        :to="`/dashboard/${todo.id}`"
+                      >Detalhes</router-link>
+                    </div>
                   </div>
                 </div>
                 <div class="card-body p-3">
@@ -221,7 +228,6 @@
               </div>
             </div>
           </div>
-
           <!-- Fim Modal -->
         </div>
       </div>
@@ -231,7 +237,9 @@
 
 <script>
 import $ from "jquery";
+
 import reunioes from "@/services/reunioes";
+import usuarios from "@/services/usuarios";
 
 export default {
   data() {
@@ -249,11 +257,13 @@ export default {
         hora_final: "",
         cancelada: ""
       },
-      todos: []
+      todos: [],
+      usuarios: []
     };
   },
   mounted() {
     this.listarReunioes();
+    this.listarUsuarios();
   },
 
   methods: {
@@ -275,6 +285,12 @@ export default {
         this.todos.length == 0
           ? (this.mostrarCards = false)
           : (this.mostrarCards = true);
+      });
+    },
+
+    listarUsuarios() {
+      usuarios.ListarUsuario().then(resposta => {
+        this.usuarios = resposta.data;
       });
     }
   },

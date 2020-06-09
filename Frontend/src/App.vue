@@ -186,10 +186,6 @@ nav .router-link-active {
   font-weight: 700;
 }
 
-/*
- * Content
- */
-
 [role="main"] {
   padding-top: 35px; /* Space for fixed navbar */
 }
