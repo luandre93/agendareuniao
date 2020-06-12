@@ -4,9 +4,9 @@
       <div class="col mx-0 px-0 mt-1">
         <!-- Cabeçalho -->
         <div class="border-bottom mb-2 border-color-light">
-          <h3 class="text-left font-custom px-2">
+          <h4 class="text-left px-2 h5">
             <i class="fa fa-list-alt mr-3"></i>Painel de Reuniões
-          </h3>
+          </h4>
         </div>
 
         <div class="col-auto">
@@ -28,7 +28,7 @@
             <!--- Botão Adicionar -->
             <div class="form-row float-left mr-4">
               <button
-                class="btn btn-outline-success border waves-effect"
+                class="btn btn-outline-success btn-sm border waves-effect mt-2"
                 data-toggle="modal"
                 data-target="#exampleModalCenter"
               >Publicar Reunião</button>
@@ -38,12 +38,17 @@
           <div class="py-4 mx-0 border-bottom border-color-light"></div>
           <!--- Inicio dos Cartões -->
 
-          <div class="row" v-if="mostrarCards">
-            <div v-for="todo in todos" :key="todo.id" class="col-auto px-2">
+          <div class="row mt-3" v-if="mostrarCards">
+            <div
+              v-for="todo in todos"
+              :key="todo.id"
+              class="col-auto px-2"
+              style="font-size: 13px !important;"
+            >
               <div
                 class="card shadow-sm border-top-0 border rounded px-1 m-3"
                 role="card"
-                style="width: 21rem; border-color:#ebeef5!important"
+                style="width: 19rem; border-color:#ebeef5!important "
               >
                 <div
                   class="px-2 form-row border card-header rounded"
@@ -63,23 +68,23 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body p-3">
+                <div class="card-body p-3" style="font-size: 13px !important;">
                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1" style>
                       <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">{{todo.categoria}}</a>
+                      <a class="text-center">Categoria: {{todo.categoria}}</a>
                     </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
                       <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">{{todo.localizacao}}</a>
+                      <a class="text-center">Local: {{todo.localizacao}}</a>
                     </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
                       <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
+                      <a class="text-center">Horário: {{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
                     </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2">
+                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
                       <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">{{todo.data}}</a>
+                      <a class="text-center">Data: {{todo.data}}</a>
                     </li>
                   </ul>
                 </div>
@@ -305,9 +310,11 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+.a-x2 {
+  font-size: 15px !important;
+  font-weight: 500;
 }
+
 .table th,
 .table td {
   vertical-align: text-bottom;
@@ -326,21 +333,5 @@ td {
 
 .shadow-custom {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-}
-
-.fab {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-
-  cursor: pointer;
-  width: 48px;
-  height: 48px;
-  border-radius: 30px;
-
-  border: none;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-  font-size: 24px;
-  color: white;
 }
 </style>

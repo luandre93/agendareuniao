@@ -4,17 +4,36 @@
       <div class="col mx-0 px-0 mt-1">
         <!-- Cabeçalho -->
         <div class="border-bottom mb-2 border-color-light">
-          <h3 class="text-left font-custom px-2">
+          <h4 class="text-left px-2 h5">
             <i class="fa fa-list-alt mr-2"></i>
             Reunião - {{todo.titulo}}
-          </h3>
+          </h4>
         </div>
 
         <div class="col-auto">
-          <!-- Procurar -->
           <div class="col float-right">
-            <div class="form-row mr-3 float-right">
-              <div class="form-row border-bottom"></div>
+            <div class="form-row mr-3">
+              <div class="col form-row">
+                <div class="col pt-2">
+                  <a class="h5" style="font-size:16px">Descrição:</a>
+                </div>
+                <div class="col pt-2">
+                  <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
+                  <a class>{{todo.categoria}}</a>
+                </div>
+                <div class="col pt-2">
+                  <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
+                  <a class>{{todo.localizacao}}</a>
+                </div>
+                <div class="col pt-2">
+                  <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
+                  <a class>{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
+                </div>
+                <div class="col pt-2">
+                  <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
+                  <a class>{{todo.data}}</a>
+                </div>
+              </div>
             </div>
 
             <!--- Botão Adicionar -->
@@ -80,9 +99,6 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-}
 .table th,
 .table td {
   vertical-align: text-bottom;

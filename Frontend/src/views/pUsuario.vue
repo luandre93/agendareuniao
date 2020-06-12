@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col mx-0 px-0 mt-1">
         <div class="text-left border-bottom mb-4 font-custom border-color-light">
-          <h3 class="text-left font-custom px-2">
+          <h4 class="text-left px-2 h5">
             <i class="fa fa-users mr-3"></i>Lista de Usuários
-          </h3>
+          </h4>
         </div>
         <form @submit.prevent="novoUsuario">
           <div class="form-row mt-4">

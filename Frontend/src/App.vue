@@ -76,6 +76,70 @@
 
 
 
+<script>
+import reunioes from "@/services/reunioes";
+import functions from "@/controllers/transformardata";
+
+export default {
+  data() {
+    return {
+      reuniao: {
+        id: "",
+        id_usuario: "",
+        titulo: "",
+        data: "",
+        categoria: "",
+        localizacao: "",
+        hora_inicial: "",
+        hora_final: "",
+        cancelada: ""
+      },
+      index: 0,
+      todos: [],
+      usuarios: [],
+      dtAtual: ""
+    };
+  },
+  mounted() {
+    this.escutarReunioes();
+    this.dataAtual();
+  },
+
+  methods: {
+    dataAtual() {
+      var data = new Date(),
+        dia = data.getDate().toString(),
+        diaF = dia.length == 1 ? "0" + dia : dia,
+        mes = (data.getMonth() + 1).toString(),
+        mesF = mes.length == 1 ? "0" + mes : mes,
+        anoF = data.getFullYear();
+      return diaF + "/" + mesF + "/" + anoF;
+    },
+    escutarReunioes() {
+      reunioes.ListarReuniao().then(resposta => {
+        this.todos = resposta.data;
+
+        for (this.index in this.todos) {
+          this.verData = functions.transformarData(this.todos[this.index].data);
+          this.comData = this.dataAtual();
+          if (this.verData == this.comData) {
+            alert(
+              "Sua reunião '" +
+                this.todos[this.index].titulo +
+                "' está agendada para hoje " +
+                this.verData +
+                "..."
+            );
+          }
+        }
+      });
+    }
+  }
+};
+</script>
+
+
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -88,16 +152,12 @@
 .border-color-light {
   border-color: #eee !important;
 }
-.font-custom {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
 body {
-  font-size: 0.875rem;
+  font-size: 0.7rem;
+  font-family: system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
+    Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica,
+    Arial, sans-serif !important;
 }
 
 @media (max-width: 991px) {
