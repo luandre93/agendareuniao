@@ -50,8 +50,12 @@
             <div class="col-auto mx-2">
               <button
                 type="submit"
-                class="btn btn-primary rounded-0 waves-effect waves-block px-5"
-              >Adicionar</button>
+                class="btn float-right px-2 py-2 rounded-pill waves-effect border-0"
+                data-toggle="modal"
+                style="background: #eee"
+              >
+                <span class="px-2 font-weight-bold">Adicionar</span>
+              </button>
             </div>
           </div>
         </form>

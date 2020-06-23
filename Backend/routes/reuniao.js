@@ -3,7 +3,7 @@ var router = express.Router()
 var Reuniao = require("../model/Reuniao")
 
 
-//get Alls usuarios
+
 
 router.get("/users/reunioes", (req, res) => {
 
@@ -40,7 +40,7 @@ router.delete("/users/reuniao/:id", (req, res) => {
         }
     })
         .then(() => {
-            res.send("Reuniao Deleteado!")
+            res.send("Reuniao Deletado!")
         })
         .catch(err => {
             res.send("error: " + err)
@@ -73,14 +73,15 @@ router.put("/users/reuniao/:id", (req, res) => {
             error: "Bad Data"
         })
     } else {
-        User.update({
+        Reuniao.update({
             titulo: req.body.titulo,
             categoria: req.body.categoria,
             localizacao: req.body.localizacao,
             data: req.body.data,
             cancelada: req.body.cancelada,
             hora_inicial: req.body.hora_inicial,
-            hora_final: req.body.hora_final
+            hora_final: req.body.hora_final,
+            iniciada: req.body.iniciada
         },
             {
                 where: {

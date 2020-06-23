@@ -5,6 +5,43 @@
       <div class="navbar-brand pl-2 pr-2 border-0" style="width: 210px; margin-left:15px">
         <a class="mx-5">CoAgendei.</a>
       </div>
+
+      <div
+        role="dd_note"
+        class="float-right px-2 navbar-brand rounded-pill waves-effect"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        @click="cor='#fff'"
+        style="margin-right:245px; background-color:#555;"
+        :style="{color: cor}"
+      >
+        <span class="fa fa-bell fa-lg fw"></span>
+      </div>
+      <div class="dropdown-menu mt-2 rounded shadow-sm" style="width: 400px;">
+        <div class="text-center w-100 float-left mb-2">
+          <h4 class="border-bottom pb-3">Notificações</h4>
+        </div>
+
+        <ul class="list-group-flush px-2">
+          <li
+            v-for="todo in todosList"
+            :key="todo.id"
+            class="list-group-item d-flex justify-content-between align-items-center nav-link-noti border-0 rounded-pill"
+          >
+            <div class="form-row">
+              <div class="col-auto">
+                <span class="fa fa-list-alt fa-lg fa-fw"></span>
+              </div>
+              <div class="col align-items-center font-weight-bolder">
+                <span class="p-2">{{todo.titulo}}</span>
+                <span class="p-2">Inicio:{{todo.hora_inicial}}</span>
+                <span class="p-2">{{transformarData(todo.data)}}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <div id="app">
@@ -59,6 +96,8 @@
         </div>
       </nav>
 
+      <!-- Alerta sobre a Reunião -->
+
       <!--fim Calendario-->
     </div>
     <div role="root" style="margin-left:230px; margin-right:250px; ">
@@ -77,6 +116,7 @@
 
 
 <script>
+//import $ from "jquery";
 import reunioes from "@/services/reunioes";
 import functions from "@/controllers/transformardata";
 
@@ -96,8 +136,12 @@ export default {
       },
       index: 0,
       todos: [],
+      todosList: [],
       usuarios: [],
-      dtAtual: ""
+      dtAtual: "",
+      tituloM: "",
+      comData: "",
+      cor: ""
     };
   },
   mounted() {
@@ -106,6 +150,13 @@ export default {
   },
 
   methods: {
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+    transformarData(x) {
+      return functions.transformarData(x);
+    },
+
     dataAtual() {
       var data = new Date(),
         dia = data.getDate().toString(),
@@ -115,21 +166,16 @@ export default {
         anoF = data.getFullYear();
       return diaF + "/" + mesF + "/" + anoF;
     },
+
     escutarReunioes() {
       reunioes.ListarReuniao().then(resposta => {
         this.todos = resposta.data;
-
         for (this.index in this.todos) {
           this.verData = functions.transformarData(this.todos[this.index].data);
           this.comData = this.dataAtual();
           if (this.verData == this.comData) {
-            alert(
-              "Sua reunião '" +
-                this.todos[this.index].titulo +
-                "' está agendada para hoje " +
-                this.verData +
-                "..."
-            );
+            this.todosList.push(this.todos[this.index]);
+            this.cor = "#FF7F50";
           }
         }
       });
@@ -164,6 +210,10 @@ body {
   [role="root"] {
     margin-left: 0 !important;
     margin-right: 0 !important;
+  }
+  [role="dd_note"] {
+    margin-right: 40px !important;
+    margin-left: 0 !important;
   }
 }
 
@@ -213,8 +263,9 @@ body {
 }
 
 .sidebar .nav-link {
-  font-weight: 500;
+  font-weight: 380;
   color: #333;
+  font-size: 14px !important;
 }
 
 .sidebar .nav-link .feather {
@@ -227,8 +278,13 @@ body {
 }
 
 .nav-link:hover {
-  background-color: #177db86e;
+  background-color: #177db83a;
   color: #333;
+}
+
+.nav-link-noti:hover {
+  background-color: rgba(98, 98, 98, 0.274);
+  color: rgb(0, 0, 0);
 }
 
 .sidebar .nav-link:hover .feather,

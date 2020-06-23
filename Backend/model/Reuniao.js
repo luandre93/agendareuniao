@@ -34,9 +34,11 @@ module.exports = db.sequelize.define(
         },
 
         cancelada: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.BOOLEAN,
         },
-
+        iniciada: {
+            type: Sequelize.BOOLEAN,
+        },
         hora_inicial: {
             type: Sequelize.INTEGER,
             allowNull: false,

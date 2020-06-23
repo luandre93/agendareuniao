@@ -1,16 +1,17 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var cors = require("cors");
+const cors = require("cors");
 //const morgan = require("morgan")
 
 //var login = require("./routes/login");
-var users = require("./routes/users");
-var reuniao = require("./routes/reuniao");
+const users = require("./routes/users");
+const reuniao = require("./routes/reuniao");
+const pautas = require("./routes/pauta");
 
 //var dashboard = require("./routes/login");
-var port = 3000;
+const port = 3000;
 
-var app = express()
+const app = express()
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -18,6 +19,7 @@ app.use(bodyParser.json())
 
 app.use('/api', reuniao)
 app.use('/api', users)
+app.use('/api', pautas)
 
 app.listen(port, () => {
     console.log("[ Servidor on-line ] [Porta => " + port + "]")

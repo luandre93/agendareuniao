@@ -11,8 +11,8 @@
 
         <div class="col-auto">
           <!-- Procurar -->
-          <div class="col float-right">
-            <div class="form-row mr-3 float-right">
+          <div class="col">
+            <div class="form-row mr-3 float-left">
               <div class="form-row border-bottom">
                 <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
                 <input
@@ -26,12 +26,15 @@
             </div>
 
             <!--- Botão Adicionar -->
-            <div class="form-row float-left mr-4">
-              <button
-                class="btn btn-outline-success btn-sm border waves-effect mt-2"
-                data-toggle="modal"
-                data-target="#exampleModalCenter"
-              >Publicar Reunião</button>
+
+            <div
+              class="float-right nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
+              data-toggle="modal"
+              style="background: #eee"
+              data-target="#exampleModalCenter"
+            >
+              <span class="fa fa-plus text-success fa-fw"></span>
+              <span class="pr-2 font-weight-bold">Publicar</span>
             </div>
           </div>
 
@@ -46,53 +49,40 @@
               style="font-size: 13px !important;"
             >
               <div
-                class="card shadow-sm border-top-0 border rounded px-1 m-3"
+                class="card px-0 shadow-sm border my-3 mx-1"
                 role="card"
                 style="width: 19rem; border-color:#ebeef5!important "
               >
-                <div
-                  class="px-2 form-row border card-header rounded"
-                  style="border-color:#ebeef5!important"
-                >
-                  <div class="form-row mx-2">
+                <div class="card-header rounded p-3 gradient-bg-blue">
+                  <div class="text-white form-row">
                     <div class="col">
-                      <span class="fa fa-comments-o fa-lg fa-fw"></span>
-                      <a class="ml-2 font-weight-bold">{{todo.titulo}}</a>
+                      <div class="h5 text-truncate" style="max-width: 220px;">{{todo.titulo}}</div>
+                      <div class="h6 pt-1" style="font-size: 14px;">Luandre Bernardi de Andrade</div>
                     </div>
-                    <div class="col-auto">
-                      <router-link
-                        class="float-right"
-                        tag="a"
-                        :to="`/dashboard/${todo.id}`"
-                      >Detalhes</router-link>
+                    <div class="col-2">
+                      <router-link :to="`/dashboard/${todo.id}`">
+                        <div class="btn float-right px-0">
+                          <span class="fa fa-chevron-right fa-lg text-white"></span>
+                        </div>
+                      </router-link>
                     </div>
                   </div>
                 </div>
-                <div class="card-body p-3" style="font-size: 13px !important;">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1" style>
-                      <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">Categoria: {{todo.categoria}}</a>
-                    </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
-                      <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">Local: {{todo.localizacao}}</a>
-                    </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
-                      <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">Horário: {{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
-                    </li>
-                    <li class="list-group-item border-bottom py-2 px-1 pb-2 rounded my-1">
+                <div class="card-body p-2 pb-4 px-3">
+                  <div class>
+                    <div class="h6 pt-2" style="font-size: 14px;">Data do inicio da reunião</div>
+                    <div class="text-body">
                       <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
-                      <a class="text-center">Data: {{todo.data}}</a>
-                    </li>
-                  </ul>
+                      <a>{{transformarData(todo.data)}} – Inicio {{todo.hora_inicial}} até {{todo.hora_final}}.</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-footer bg-white border-0">
-                  <small class="text-success float-right">
-                    <span class="fa fa-clock-o fa-fw"></span>
-                    {{todo.data}}
-                  </small>
+                <div class="card-footer bg-light border-top p-1 text-justify">
+                  <button class="btn nav-link px-2 rounded-pill waves-effect bg-light">Anexos</button>
+                  <button
+                    class="btn nav-link px-2 rounded-pill waves-effect bg-light"
+                    @click="gerarAta()"
+                  >Gerar Ata</button>
                 </div>
               </div>
             </div>
@@ -114,15 +104,14 @@
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-              <div class="modal-content rounded-0">
+              <div class="modal-content rounded p-3">
                 <form @submit.prevent="novaReuniao">
-                  <div class="modal-header border-0">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">
-                      <span class="fa fa-edit fa-lg fw"></span> Adicionar Reunião
-                    </h5>
+                  <div class="modal-header border-0 p-0">
+                    <a class="modal-title h5 pt-1" id="exampleModalCenterTitle"></a>
                     <button
                       type="button"
-                      class="btn waves-effect font-weight-bold border-0"
+                      class="btn waves-effect font-weight-bold border-0 bg-danger"
+                      style="font-size: 14px; color: white;"
                       data-dismiss="modal"
                     >X</button>
                   </div>
@@ -226,7 +215,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="modal-footer border-0">
+                  <div class="modal-footer border-0 pt-3">
                     <button type="submit" class="btn btn-block waves-effect btn-primary">Publicar</button>
                   </div>
                 </form>
@@ -245,6 +234,7 @@ import $ from "jquery";
 
 import reunioes from "@/services/reunioes";
 import usuarios from "@/services/usuarios";
+import functions from "@/controllers/transformardata";
 
 export default {
   data() {
@@ -260,7 +250,8 @@ export default {
         localizacao: "",
         hora_inicial: "",
         hora_final: "",
-        cancelada: ""
+        cancelada: "",
+        iniciada: ""
       },
       todos: [],
       usuarios: []
@@ -272,6 +263,9 @@ export default {
   },
 
   methods: {
+    transformarData(x) {
+      return functions.transformarData(x);
+    },
     limparCampos() {},
     novaReuniao() {
       reunioes
@@ -284,6 +278,7 @@ export default {
           alert("Erro ao adicionar !");
         });
     },
+
     listarReunioes() {
       reunioes.ListarReuniao().then(resposta => {
         this.todos = resposta.data;
@@ -333,5 +328,27 @@ td {
 
 .shadow-custom {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.gradient-bg-blue {
+  background: rgb(96, 108, 136); /* Old browsers */
+  background: -moz-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(96, 108, 136, 1) 10%,
+    rgba(63, 76, 107, 1) 86%
+  ); /* FF3.6-15 */
+  background: -webkit-radial-gradient(
+    center,
+    ellipse cover,
+    rgba(96, 108, 136, 1) 10%,
+    rgba(63, 76, 107, 1) 86%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(96, 108, 136, 1) 10%,
+    rgba(63, 76, 107, 1) 86%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 </style>
