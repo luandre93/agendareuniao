@@ -60,7 +60,7 @@
                       <div class="h6 pt-1" style="font-size: 14px;">Luandre Bernardi de Andrade</div>
                     </div>
                     <div class="col-2">
-                      <router-link :to="`/dashboard/${todo.id}`">
+                      <router-link :to="{name: 'pReuniao', params:{id: todo.id}}">
                         <div class="btn float-right px-0">
                           <span class="fa fa-chevron-right fa-lg text-white"></span>
                         </div>

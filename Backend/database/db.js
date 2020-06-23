@@ -6,6 +6,7 @@ var sequelize = new Sequelize("reuniaoprojeto", "root", "123456", {
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: 0,
+    logging: false,
     pool: {
         max: 5,
         min: 0,

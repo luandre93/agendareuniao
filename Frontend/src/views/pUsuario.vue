@@ -136,6 +136,7 @@ export default {
           this.usuario.nivel = "";
           this.usuario.cancelado = "";
           this.listarUsuario();
+          alert("Usuario Adicionado com sucesso!");
         })
         .catch(() => {
           alert("Erro ao adicionar !");

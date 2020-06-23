@@ -1,8 +1,6 @@
-var express = require("express")
-var router = express.Router()
-var Pauta = require("../model/Pautas")
-
-
+const express = require("express")
+const router = express.Router()
+const Pauta = require("../model/Pautas")
 
 
 router.get("/users/reunioes/pautas", (req, res) => {
@@ -25,6 +23,7 @@ router.get("/users/reuniao/pauta/:id", (req, res) => {
     })
         .then(pauta => {
             res.json(pauta)
+
         })
         .catch((err) => {
             res.send(err)
@@ -69,7 +68,7 @@ router.put("/users/reuniao/pauta/:id", (req, res) => {
         User.update({
             pauta: req.body.pauta,
             horario: req.body.horario,
-            comentario: req.bodycomentario
+            comentario: req.body.comentario
         },
             {
                 where: {

@@ -1,8 +1,7 @@
-var express = require("express")
-var router = express.Router()
-var Reuniao = require("../model/Reuniao")
-
-
+const express = require("express")
+const router = express.Router()
+const Reuniao = require("../model/Reuniao")
+const utils = require("../libs/utils")
 
 
 router.get("/users/reunioes", (req, res) => {
@@ -10,6 +9,7 @@ router.get("/users/reunioes", (req, res) => {
     Reuniao.findAll()
         .then(reuniao => {
             res.json(reuniao)
+
         })
         .catch(err => {
             res.send("erro ao carregar... Banco de dados! " + err)
@@ -19,12 +19,16 @@ router.get("/users/reunioes", (req, res) => {
 router.get("/users/reuniao/:id", (req, res) => {
 
     Reuniao.findOne({
+
         where: {
-            id: req.params.id
-        }
+            id: req.params.id,
+
+        },
+
     })
         .then(reuniao => {
             res.json(reuniao)
+            console.log(utils.cabecalho() + "[Ação: Acessando Reuniao] [ID: " + reuniao.id + "] [Titulo: " + reuniao.titulo + "] [Data: " + reuniao.data + "]")
         })
         .catch((err) => {
             res.send(err)
@@ -51,16 +55,13 @@ router.delete("/users/reuniao/:id", (req, res) => {
 //create
 router.post("/users/reuniao", (req, res) => {
 
-    /*if (!req.body.id_usuario) {
-        res.status(400)
-        res.json({
-            error: "Bad Data!"
+    Reuniao.create(req.body).then((reuniao) => {
+        res.send("Reunião Adicionado.")
+
+    })
+        .catch(err => {
+            res.send("Error: " + err)
         })
-    } else {*/
-
-    Reuniao.create(req.body).then(() => { res.send("Reunião Adicionado.") })
-        .catch(err => { res.send("Error: " + err) })
-
 })
 
 
