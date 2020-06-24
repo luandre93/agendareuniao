@@ -231,10 +231,9 @@
 
 <script>
 import $ from "jquery";
-
 import reunioes from "@/services/reunioes";
 import usuarios from "@/services/usuarios";
-import functions from "@/controllers/transformardata";
+import functions from "@/libs/transformardata";
 
 export default {
   data() {
@@ -266,17 +265,38 @@ export default {
     transformarData(x) {
       return functions.transformarData(x);
     },
-    limparCampos() {},
+    limparCampos() {
+      this.reuniao.id_usuario = "";
+      this.reuniao.titulo = "";
+      this.reuniao.categoria = "";
+      this.reuniao.localizacao = "";
+      this.reuniao.hora_inicial = "";
+      this.reuniao.hora_final = "";
+    },
     novaReuniao() {
-      reunioes
-        .addReuniao(this.reuniao)
-        .then(() => {
-          this.listarReunioes();
-          this.save;
-        })
-        .catch(() => {
-          alert("Erro ao adicionar !");
-        });
+      if (
+        !(
+          this.reuniao.titulo &&
+          this.reuniao.categoria &&
+          this.reuniao.localizacao &&
+          this.reuniao.hora_inicial &&
+          this.reuniao.hora_final &&
+          this.reuniao.data
+        )
+      ) {
+        alert("Por favor, preencha os campos obrigatórios.");
+      } else {
+        reunioes
+          .addReuniao(this.reuniao)
+          .then(() => {
+            this.listarReunioes();
+            this.limparCampos();
+            $(".modal").modal("hide");
+          })
+          .catch(() => {
+            alert("Erro ao adicionar !");
+          });
+      }
     },
 
     listarReunioes() {
@@ -292,13 +312,6 @@ export default {
       usuarios.ListarUsuario().then(resposta => {
         this.usuarios = resposta.data;
       });
-    }
-  },
-
-  computed: {
-    save() {
-      $(".modal").modal("hide");
-      return this.$emit("save");
     }
   }
 };

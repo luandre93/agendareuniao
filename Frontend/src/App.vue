@@ -118,7 +118,7 @@
 <script>
 //import $ from "jquery";
 import reunioes from "@/services/reunioes";
-import functions from "@/controllers/transformardata";
+import functions from "@/libs/transformardata";
 
 export default {
   data() {
