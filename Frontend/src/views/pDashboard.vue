@@ -16,8 +16,10 @@
               <div class="form-row border-bottom">
                 <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
                 <input
-                  type="text"
+                  type="search"
                   class="form-control bg-white border-0 pl-3 pr-3"
+                  @keyup.enter="buscarReuniao"
+                  :value="$route.query.procurar"
                   aria-describedby="helpId"
                   placeholder="Procurar..."
                   style="width: 200px"
@@ -43,7 +45,7 @@
 
           <div class="row mt-3" v-if="mostrarCards">
             <div
-              v-for="todo in todos"
+              v-for="todo in reunioesFiltradas"
               :key="todo.id"
               class="col-auto px-2"
               style="font-size: 13px !important;"
@@ -83,6 +85,13 @@
                     class="btn nav-link px-2 rounded-pill waves-effect bg-light"
                     @click="gerarAta()"
                   >Gerar Ata</button>
+                  <button
+                    class="btn nav-link px-2 rounded-pill waves-effect bg-light float-right"
+                    @click="iniciarReuniao()"
+                  >
+                    <span class="fa fa-plus text-success fa-fw"></span>
+                    <span class="pr-2 font-weight-bold">Iniciar</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -223,6 +232,41 @@
             </div>
           </div>
           <!-- Fim Modal -->
+
+          <!-- Button trigger modal -->
+          <!-- <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            data-toggle="modal"
+            data-target="#modelId"
+          >Launch</button>-->
+
+          <!-- Modal-->
+
+          <div
+            class="modal fade"
+            id="modelId"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="modelTitleId"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">sm</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">Body</div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -260,8 +304,27 @@ export default {
     this.listarReunioes();
     this.listarUsuarios();
   },
+  computed: {
+    reunioesFiltradas() {
+      const procurar = this.$route.query.procurar;
+      return !procurar
+        ? this.todos
+        : this.todos.filter(t =>
+            t.titulo.toLowerCase().includes(procurar.toLowerCase())
+          );
+    }
+  },
 
   methods: {
+    buscarReuniao(event) {
+      this.$router.push({
+        path: "/dashboard",
+        query: {
+          procurar: event.target.value
+        }
+      });
+    },
+
     transformarData(x) {
       return functions.transformarData(x);
     },
