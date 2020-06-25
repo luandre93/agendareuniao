@@ -49,9 +49,13 @@ router.delete("/users/reuniao/pauta/:id", (req, res) => {
 
 //create
 router.post("/users/reuniao/pauta", (req, res) => {
-
-    Pauta.create(req.body).then(() => { res.send("Pauta Adicionada.") })
-        .catch(err => { res.send("Error: " + err) })
+    Pauta.create(req.body)
+        .then(() => {
+            res.send("Pauta Adicionada.")
+        })
+        .catch(err => {
+            res.send("Error: " + err)
+        })
 
 })
 

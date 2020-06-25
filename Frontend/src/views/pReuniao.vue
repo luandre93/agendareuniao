@@ -12,26 +12,39 @@
 
         <div class="col-auto">
           <div class="col float-right">
-            <div class="form-row mr-3">
+            <div class="form-row border-bottom">
               <div class="col form-row">
-                <div class="col pt-2">
+                <div class="col-1 py-3">
                   <a class="h5" style="font-size:16px">Descrição:</a>
                 </div>
-                <div class="col pt-2">
-                  <span class="fa fa-bars fa-lg fa-fw mr-2"></span>
-                  <a class>{{todo.categoria}}</a>
+                <div class="col pt-2 pb-2">
+                  <span class="fa fa-bars fa-lg d-block text-center pb-1"></span>
+                  <span class="text-center d-block">{{todo.categoria}}</span>
                 </div>
-                <div class="col pt-2">
-                  <span class="fa fa-map-o fa-lg fa-fw mr-2"></span>
-                  <a class>{{todo.localizacao}}</a>
+                <div class="col pt-2 pb-2">
+                  <span class="fa fa-map-o fa-lg d-block text-center pb-1"></span>
+                  <span class="text-center d-block">{{todo.localizacao}}</span>
                 </div>
-                <div class="col pt-2">
-                  <span class="fa fa-clock-o fa-lg fa-fw mr-2"></span>
-                  <a class>{{todo.hora_inicial}} ~ {{todo.hora_final}}</a>
+                <div class="col pt-2 pb-2">
+                  <span class="fa fa-clock-o fa-lg d-block text-center pb-1"></span>
+                  <span class="text-center d-block">{{todo.hora_inicial}} ~ {{todo.hora_final}}</span>
                 </div>
-                <div class="col pt-2">
-                  <span class="fa fa-calendar fa-lg fa-fw mr-2"></span>
-                  <a class>{{todo.data}}</a>
+                <div class="col pt-2 pb-2">
+                  <span class="fa fa-calendar fa-lg d-block text-center pb-1"></span>
+                  <span class="text-center d-block">{{ transformarData(todo.data)}}</span>
+                </div>
+                <div class="col mt-2">
+                  <div class="form-row border-left">
+                    <div
+                      class="ml-2 float-right nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
+                      data-toggle="modal"
+                      style="background: #eee"
+                      data-target="#exampleModalCenter"
+                    >
+                      <span class="fa fa-plus text-success fa-fw"></span>
+                      <span class="pr-2 font-weight-bold">Iniciar</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -39,8 +52,6 @@
             <!--- Botão Adicionar -->
             <div class="form-row float-left mr-4"></div>
           </div>
-
-          <div class="py-4 mx-0 border-bottom border-color-light"></div>
 
           <div class="col"></div>
 
@@ -54,6 +65,7 @@
 <script>
 import reunioes from "@/services/reunioes";
 import usuarios from "@/services/usuarios";
+import functions from "@/libs/transformardata";
 
 export default {
   data() {
@@ -79,6 +91,10 @@ export default {
   },
 
   methods: {
+    transformarData(x) {
+      return functions.transformarData(x);
+    },
+
     limparCampos() {},
 
     listarUsuarios() {
