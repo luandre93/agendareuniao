@@ -106,12 +106,18 @@ import usuarios from "@/services/usuarios";
 export default {
   data() {
     return {
-      usuario: { id: "", nome: "", senha: "", nivel: "", cancelado: "" },
+      usuario: {
+        id: "",
+        email: "",
+        nome: "",
+        senha: "",
+        nivel: "",
+        cancelado: ""
+      },
       todos: []
     };
   },
   mounted() {
-    /*this.listarUsuario();*/
     this.listarUsuario();
   },
 

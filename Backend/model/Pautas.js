@@ -22,7 +22,6 @@ module.exports = db.sequelize.define(
         },
         horario: {
             type: Sequelize.INTEGER,
-            allowNull: false,
         },
 
         comentario: {

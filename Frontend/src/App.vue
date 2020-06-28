@@ -51,15 +51,7 @@
         </div>-->
       </nav>
       <!-- Calendario-->
-      <nav class="calendar d-lg-block d-none shadow-sm border rounded float-right">
-        <div class="border-bottom px-2">
-          <div class="text-left font-weight-bold p-2">
-            <span class="fa fa-calendar-o fa-fw mr-2"></span>
-            <a class>Calendário</a>
-          </div>
-        </div>
-      </nav>
-
+      <cCalendario />
       <!-- Alerta sobre a Reunião -->
 
       <!--fim Calendario-->
@@ -81,9 +73,10 @@
 
 <script>
 import cNotificacao from "./views/components/cNotificacao.vue";
+import cCalendario from "./views/components/cCalendario.vue";
 
 export default {
-  components: { cNotificacao },
+  components: { cNotificacao, cCalendario },
 
   data() {
     return {};
@@ -121,6 +114,28 @@ body {
   [role="dd_note"] {
     margin-right: 40px !important;
     margin-left: 0 !important;
+  }
+}
+@media (max-width: 1366px) {
+  [role="root"] {
+    margin-right: 0 !important;
+  }
+}
+
+[role="main"] {
+  padding-top: 35px; /* Space for fixed navbar */
+}
+
+@media (min-width: 766px) {
+  [role="main"] {
+    padding-top: 35px; /* Space for fixed navbar */
+  }
+}
+@media (min-width: 992px) {
+  [role="main"] {
+    width: 100% !important;
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 
@@ -212,23 +227,6 @@ body {
 nav .router-link-active {
   color: rgba(255, 255, 255, 0.25);
   font-weight: 700;
-}
-
-[role="main"] {
-  padding-top: 35px; /* Space for fixed navbar */
-}
-
-@media (min-width: 766px) {
-  [role="main"] {
-    padding-top: 35px; /* Space for fixed navbar */
-  }
-}
-@media (min-width: 992px) {
-  [role="main"] {
-    width: 100% !important;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
 }
 
 /*

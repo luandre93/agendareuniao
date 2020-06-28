@@ -1,12 +1,11 @@
-
 <template>
   <span>
     <div
       role="dd_note"
-      class="float-right waves-circle waves-effect"
+      class="float-right waves-circle waves-effect text-white"
       data-toggle="dropdown"
       aria-haspopup="true"
-      aria-expanded="false"
+      aria-expanded="true"
       @click="cor='#fff'"
       style="margin-right:245px; background-color:#555;"
       :style="{color: cor}"
@@ -24,15 +23,14 @@
           :key="todo.id"
           class="list-group-item d-flex justify-content-between align-items-center nav-link-noti border-0 rounded-pill"
         >
-          <div class="form-row">
-            <div class="col-auto">
-              <span class="fa fa-list-alt fa-lg fa-fw"></span>
+          <div class="col-auto font-weight-bolder">
+            <div class="col-auto p-1 h6 text-truncate">
+              <b class style>{{todo.titulo}}</b> está agendada para hoje.
             </div>
-            <div class="col align-items-center font-weight-bolder">
-              <span class="p-2">{{todo.titulo}}</span>
-              <span class="p-2">Inicio:{{todo.hora_inicial}}</span>
-              <span class="p-2">{{transformarData(todo.data)}}</span>
-            </div>
+            <span class="fa fa-clock-o fa-lg fa-fw"></span>
+            <span class="p-2">Inicio: {{todo.hora_inicial}}</span>
+            <span class="fa fa-calendar fa-lg fa-fw"></span>
+            <span class="p-2">{{transformarData(todo.data)}}</span>
           </div>
         </li>
       </ul>

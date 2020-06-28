@@ -63,13 +63,13 @@ router.post("/users/reuniao/pauta", (req, res) => {
 //update
 
 router.put("/users/reuniao/pauta/:id", (req, res) => {
-    if (!req.body.titulo) {
+    if (!req.body.pauta) {
         res.status(400)
         res.json({
             error: "Bad Data"
         })
     } else {
-        User.update({
+        Pauta.update({
             pauta: req.body.pauta,
             horario: req.body.horario,
             comentario: req.body.comentario
@@ -81,7 +81,7 @@ router.put("/users/reuniao/pauta/:id", (req, res) => {
             }
         )
             .then(() => {
-                res.send("Usuario Atualizado!")
+                res.send("Pauta Atualizada!")
             })
             .error(err => res.send(err))
     }

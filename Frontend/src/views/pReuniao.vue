@@ -22,7 +22,7 @@
                   <span class="text-center d-block">{{todo.categoria}}</span>
                 </div>
                 <div class="col pt-2 pb-2">
-                  <span class="fa fa-map-o fa-lg d-block text-center pb-1"></span>
+                  <span class="fa fa-marker fa-lg d-block text-center pb-1"></span>
                   <span class="text-center d-block">{{todo.localizacao}}</span>
                 </div>
                 <div class="col pt-2 pb-2">
@@ -103,8 +103,8 @@ export default {
       });
     },
 
-    listarReuniaoID(id) {
-      reunioes.ListarReuniaoID(id).then(resposta => {
+    listarReuniao() {
+      reunioes.ListarReuniao().then(resposta => {
         this.todo = resposta.data;
       });
     }
