@@ -10,6 +10,10 @@ module.exports = db.sequelize.define(
             autoIncrement: true,
             unique: true
         },
+        email: {
+            type: Sequelize.STRING,
+            unique: true
+        },
         nome: {
             type: Sequelize.STRING,
         },

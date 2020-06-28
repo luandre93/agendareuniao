@@ -22,7 +22,7 @@
                   :value="$route.query.procurar"
                   aria-describedby="helpId"
                   placeholder="Procurar..."
-                  style="width: 200px"
+                  style="width: 320px"
                 />
               </div>
             </div>
@@ -33,7 +33,7 @@
               class="float-right nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
               data-toggle="modal"
               style="background: #eee"
-              data-target="#exampleModalCenter"
+              data-target="#publicarReuniao"
             >
               <span class="fa fa-plus text-success fa-fw"></span>
               <span class="pr-2 font-weight-bold">Publicar</span>
@@ -41,7 +41,8 @@
           </div>
 
           <div class="py-4 mx-0 border-bottom border-color-light"></div>
-          <!--- Inicio dos Cartões -->
+
+          <!--- Inicio dos Cartões de Reunião -->
 
           <div class="row mt-3" v-if="mostrarCards">
             <div
@@ -62,11 +63,16 @@
                       <div class="h6 pt-1" style="font-size: 14px;">Luandre Bernardi de Andrade</div>
                     </div>
                     <div class="col-2">
-                      <router-link :to="{name: 'pReuniao', params:{id: todo.id}}">
-                        <div class="btn float-right px-0">
-                          <span class="fa fa-chevron-right fa-lg text-white"></span>
-                        </div>
-                      </router-link>
+                      <!--  <router-link :to="{name: 'pReuniao', params:{id: todo.id}}">-->
+
+                      <div
+                        class="btn float-right px-0"
+                        data-toggle="modal"
+                        :data-target="'#mdPauta'+todo.id"
+                      >
+                        <span class="fa fa-chevron-right fa-lg text-white"></span>
+                      </div>
+                      <!-- </router-link> -->
                     </div>
                   </div>
                 </div>
@@ -94,6 +100,32 @@
                   </button>
                 </div>
               </div>
+
+              <!-- modal editar pautas -->
+              <div
+                class="modal fade"
+                :id="'mdPauta'+todo.id"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="editarPautas"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">{{todo.titulo}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">Body</div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div v-else>
@@ -106,27 +138,30 @@
 
           <div
             class="modal fade bd-example-modal-lg"
-            id="exampleModalCenter"
+            id="publicarReuniao"
             tabindex="-1"
             role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
+            aria-labelledby="publicarReuniao"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-              <div class="modal-content rounded p-3">
+              <div class="modal-content rounded p-2">
                 <form @submit.prevent="novaReuniao">
-                  <div class="modal-header border-0 p-0">
-                    <a class="modal-title h5 pt-1" id="exampleModalCenterTitle"></a>
+                  <div class="modal-header p-2 border-bottom">
+                    <div class="mx-auto">
+                      <div class="modal-title h5 pt-1 text-center">Publicar Reunião</div>
+                    </div>
                     <button
                       type="button"
-                      class="btn waves-effect font-weight-bold border-0 bg-danger"
-                      style="font-size: 14px; color: white;"
+                      class="btn waves-effect waves-circle font-weight-bold border-0 bg-danger"
                       data-dismiss="modal"
-                    >X</button>
+                    >
+                      <span class="h5 text-white">X</span>
+                    </button>
                   </div>
 
                   <div class="modal-body p-0">
-                    <div class="form-row p-3">
+                    <div class="form-row mt-3 p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-user fa-lg fa-fw"></span>
                       </div>
@@ -232,41 +267,6 @@
             </div>
           </div>
           <!-- Fim Modal -->
-
-          <!-- Button trigger modal -->
-          <!-- <button
-            type="button"
-            class="btn btn-primary btn-lg"
-            data-toggle="modal"
-            data-target="#modelId"
-          >Launch</button>-->
-
-          <!-- Modal-->
-
-          <div
-            class="modal fade"
-            id="modelId"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="modelTitleId"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">sm</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">Body</div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -314,6 +314,7 @@ export default {
           );
     }
   },
+  created() {},
 
   methods: {
     buscarReuniao(event) {
@@ -361,7 +362,6 @@ export default {
           });
       }
     },
-
     listarReunioes() {
       reunioes.ListarReuniao().then(resposta => {
         this.todos = resposta.data;

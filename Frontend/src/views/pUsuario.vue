@@ -159,7 +159,6 @@ export default {
 
     listarUsuario() {
       usuarios.ListarUsuario().then(resposta => {
-        console.log(resposta.data);
         this.todos = resposta.data;
         this.usuario.nivel = "";
         this.usuario.cancelado = "";
