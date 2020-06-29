@@ -5,7 +5,7 @@
       <div class="navbar-brand pl-2 pr-2 border-0" style="width: 210px; margin-left:15px">
         <a class="mx-5">CoAgendei.</a>
       </div>
-      <cNotificacao />
+      <cNotificacao ref="cNotificacaoOne" />
     </nav>
 
     <div id="app">
@@ -77,7 +77,9 @@ import cCalendario from "./views/components/cCalendario.vue";
 
 export default {
   components: { cNotificacao, cCalendario },
-
+  mounted() {
+    this.$refs.cNotificacaoOne.escutarReunioes();
+  },
   data() {
     return {};
   }

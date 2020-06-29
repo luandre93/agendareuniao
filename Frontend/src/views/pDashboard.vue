@@ -42,9 +42,8 @@
             <div class="col-auto float-right">
               <div
                 class="nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
-                data-toggle="modal"
                 style="background: #eee"
-                data-target="#publicarReuniao"
+                @click="visualizarComo()"
               >
                 <span class="px-2 font-weight-bold">OK</span>
               </div>
@@ -68,10 +67,11 @@
           <!--- Inicio dos Cartões de Reunião -->
 
           <div class="row mt-3" v-if="mostrarCards">
+            <!--- <div v-if>-->
             <div
               v-for="todo in reunioesFiltradas"
               :key="todo.id"
-              class="row col-12 py-3"
+              class="row col-auto py-2"
               style="font-size: 13px !important;"
             >
               <div class="col-auto pr-0">
@@ -84,13 +84,31 @@
                     <div class="text-white form-row">
                       <div class="col">
                         <div class="h5 text-truncate" style="max-width: 220px;">{{todo.titulo}}</div>
+
                         <div class="h6 pt-1" style="font-size: 14px;">Luandre Bernardi de Andrade</div>
                       </div>
-                      <div class="col-2">
-                        <div class="btn float-right px-0" @click="!showPauta ? true : false">
-                          <span class="fa fa-chevron-right fa-lg text-white"></span>
+
+                      <div class="col-2 float-right">
+                        <div class="ml-3 form-row">
+                          <div class="btn px-0 py-0">
+                            <span
+                              class="fa fa-chevron-right fa-lg text-white"
+                              type="button"
+                              :data-target="'#modal'+todo.id"
+                              data-toggle="modal"
+                            ></span>
+                          </div>
                         </div>
-                        <!-- </router-link> -->
+                        <div class="ml-3 form-row pt-2">
+                          <div class="btn px-0 py-0">
+                            <span
+                              class="fa fa-paperclip fa-lg text-white"
+                              type="button"
+                              :data-target="'#modal'+todo.id"
+                              data-toggle="modal"
+                            ></span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -108,7 +126,10 @@
                     </div>
                   </div>
                   <div class="card-footer bg-light border-top p-1 text-justify">
-                    <button class="btn nav-link px-2 rounded-pill waves-effect bg-light">Anexos</button>
+                    <button
+                      class="btn nav-link px-2 rounded-pill waves-effect bg-light"
+                      @click="excluirReuniao(todo.id)"
+                    >Excluir</button>
                     <button
                       class="btn nav-link px-2 rounded-pill waves-effect bg-light"
                       @click="gerarAta()"
@@ -123,35 +144,83 @@
                   </div>
                 </div>
               </div>
-              <div class="col-auto px-2 mt-3 float-left flex-column border-right">
-                <button class="btn waves-effect" @click.prevent="novaPauta(todo.id)">
-                  <a class="h3 font-weight-bold">+</a>
-                </button>
-              </div>
-              <!-- Pautas -->
 
-              <div class="col my-3 px-3 border-0 border-left-0 border-right-0">
-                <div class="form-row" v-for="todoP in todosPauta" :key="todoP.id">
-                  <div class="col row py-2" v-if="todoP.id_reuniao == todo.id">
-                    <div class="col">
-                      <input
-                        v-model="todoP.pauta"
-                        @keyup.enter="atualizarPauta(todoP.id, todoP.pauta)"
-                        class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
-                      />
-                    </div>
-                    <div class>
-                      <button class="btn waves-effect float-right" @click="excluirPauta(todoP.id)">
-                        <span class="fa fa-trash-o"></span>
+              <!-- Modal Pautas -->
+              <div class="modal fade bd-example-modal-lg" :id="'modal'+todo.id">
+                <div class="modal-dialog modal-lg" style="max-width:990px">
+                  <div class="modal-content rounded p-2">
+                    <div class="modal-header p-2 border-bottom">
+                      <div class="mx-auto">
+                        <div class="modal-title h5 pt-1 text-center">Pautas - {{todo.titulo}}</div>
+                      </div>
+                      <button
+                        type="button"
+                        class="btn waves-effect waves-circle font-weight-bold border-0 bg-danger"
+                        data-dismiss="modal"
+                      >
+                        <span class="h5 text-white">X</span>
                       </button>
+                    </div>
+                    <div class="modal-body scrollbar my-2" id="style-7">
+                      <div class="row">
+                        <div class="col-auto px-2 mt-3 float-left flex-column position-fixed">
+                          <button
+                            class="btn waves-effect waves-circle font-weight-bold border-0 bg-success"
+                            @click.prevent="novaPauta(todo.id)"
+                          >
+                            <a class="h5 text-white">+</a>
+                          </button>
+                        </div>
+                        <!-- Pautas -->
+                        <div
+                          class="col ml-5 my-3 border-0 border-left-0 border-right-0"
+                          style="max-height:600px; height:400px"
+                        >
+                          <div class="form-row" v-for="todoP in todosPauta" :key="todoP.id">
+                            <div class="col row py-2" v-if="todoP.id_reuniao == todo.id">
+                              <div class="col">
+                                <input
+                                  type="textarea"
+                                  v-model.trim="todoP.pauta"
+                                  @keyup.enter="atualizarPauta(todoP.id, todoP.pauta)"
+                                  class="form-control border-left border-right-0 border-top-0 rounded-0"
+                                />
+                              </div>
+                              <div class>
+                                <button
+                                  class="btn waves-effect float-right nav-link"
+                                  @click="excluirPauta(todoP.id)"
+                                >
+                                  <span class="fa fa-trash-o"></span>
+                                </button>
+                              </div>
+                              <div class>
+                                <button
+                                  class="btn waves-effect float-right nav-link"
+                                  @click="atualizarPauta(todoP.id, todoP.pauta)"
+                                >
+                                  <span class="fa fa-check-circle"></span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary waves-effect"
+                        data-dismiss="modal"
+                        @click="(listarPautas())"
+                      >Voltar</button>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- fim pautas -->
             </div>
           </div>
+
           <div v-else>
             <center class="h4 my-5">Olá, não existe reuniões agendadas.</center>
           </div>
@@ -160,15 +229,8 @@
 
           <!-- Modal Adicionar reuniao -->
 
-          <div
-            class="modal fade bd-example-modal-lg"
-            id="publicarReuniao"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="publicarReuniao"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal fade bd-example-modal-lg" id="publicarReuniao">
+            <div class="modal-dialog modal-lg">
               <div class="modal-content rounded p-2">
                 <form @submit.prevent="novaReuniao">
                   <div class="modal-header p-2 border-bottom">
@@ -192,7 +254,7 @@
                       <div class="col">
                         <input
                           type="text"
-                          v-model="reuniao.id_usuario"
+                          v-model.trim="reuniao.id_usuario"
                           class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
                           placeholder="id_usuario"
                           aria-describedby="helpId"
@@ -206,7 +268,7 @@
                       <div class="col">
                         <input
                           type="text"
-                          v-model="reuniao.titulo"
+                          v-model.trim="reuniao.titulo"
                           class="form-control border-left-0 border-right-0 border-top-0 rounded-0 mb-2"
                           placeholder="Titulo"
                           aria-describedby="helpId"
@@ -220,10 +282,11 @@
                       <div class="col">
                         <input
                           type="text"
-                          v-model="reuniao.categoria"
+                          v-model.trim="reuniao.categoria"
                           class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
                           placeholder="Categoria"
                           aria-describedby="helpId"
+                          style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
                         />
                       </div>
                     </div>
@@ -235,7 +298,7 @@
                       <div class="col">
                         <input
                           type="text"
-                          v-model="reuniao.localizacao"
+                          v-model.trim="reuniao.localizacao"
                           class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
                           placeholder="Localização"
                           aria-describedby="helpId"
@@ -303,13 +366,15 @@ import reunioes from "@/services/reunioes";
 import pautas from "@/services/pautas";
 import usuarios from "@/services/usuarios";
 import functions from "@/libs/transformardata";
+//import cNotificacao from "./views/components/cNotificacao.vue";
+import functions from "@/libs/transformardata";
 
 export default {
   data() {
     return {
-      showModal: false,
-      showPauta: false,
       viewCards: "",
+      showModal: false,
+      showPauta: true,
       mostrarCards: true,
       reuniao: {
         id: "",
@@ -330,7 +395,9 @@ export default {
         horario: "",
         comentario: ""
       },
+
       todosPauta: [],
+      todosPautaF: [],
       todosReuniao: [],
       usuarios: []
     };
@@ -354,6 +421,34 @@ export default {
   },
 
   methods: {
+    transformarData(x) {
+      return functions.transformarData(x);
+    },
+
+    dataAtual() {
+      var data = new Date(),
+        dia = data.getDate().toString(),
+        diaF = dia.length == 1 ? "0" + dia : dia,
+        mes = (data.getMonth() + 1).toString(),
+        mesF = mes.length == 1 ? "0" + mes : mes,
+        anoF = data.getFullYear();
+      return diaF + "/" + mesF + "/" + anoF;
+    },
+
+    iniciarReuniao(id) {
+      for (this.index in this.todosReuniao) {
+        if (this.todosReuniao[this.index].id == id) {
+          this.verData = functions.transformarData(
+            this.todosReuniao[this.index].data
+          );
+          this.comData = this.dataAtual();
+
+          if (this.verData == this.comData) {
+          }
+        }
+      }
+    },
+
     buscarReuniao(event) {
       this.$router.push({
         path: "/dashboard",
@@ -363,7 +458,18 @@ export default {
       });
     },
 
-    visualizarComo() {},
+    visualizarComo() {
+      if (this.viewCards == "Cartões") {
+        console.log("cartões");
+        this.showPauta = false;
+        this.tamanhoClasse = "col-auto";
+      }
+      if (this.viewCards == "Pautas") {
+        console.log("Pautas");
+        this.showPauta = true;
+        this.tamanhoClasse = "col-12";
+      }
+    },
 
     limparCampos() {
       this.reuniao.id_usuario = "";
@@ -388,30 +494,51 @@ export default {
           alert("Não foi possivel exluir pauta... " + err);
         });
     },
-
-    atualizarPauta(id, pauta) {
-      this.pauta.pauta = pauta;
-      this.pauta.id = id;
-      pautas
-        .atualizarPauta(id, this.pauta)
+    excluirReuniao(id) {
+      for (this.index in this.todosPauta) {
+        if (this.todosPauta[this.index].id_reuniao == id) {
+          this.excluirPauta(this.todosPauta[this.index].id);
+        }
+      }
+      reunioes
+        .delReuniao(id)
         .then(() => {
-          this.listarPautas();
-          this.pauta.pauta = "";
-          this.pauta.id = "";
+          this.listarReunioes();
         })
         .catch(err => {
-          alert("Não foi possivel atualizar pauta... " + err);
+          alert("Não foi possivel exluir Reunião... " + err);
         });
+    },
+
+    atualizarPauta(id, pauta) {
+      if (pauta == "") {
+        alert("alguns campos estão vazios, favor preencha ou exclua.");
+      } else {
+        this.pauta.pauta = pauta;
+        this.pauta.id = id;
+
+        pautas
+          .atualizarPauta(id, this.pauta)
+          .then(() => {
+            this.listarPautas();
+            this.pauta.pauta = "";
+            this.pauta.id = "";
+            alert("Salvo com sucesso!");
+          })
+          .catch(err => {
+            alert("Não foi possivel atualizar pauta... " + err);
+          });
+      }
     },
 
     // Função de Nova Pauta
     novaPauta(id) {
       this.pauta.id_reuniao = id;
+      this.pauta.pauta = "Escreva sua pauta aqui...";
       pautas
         .addPauta(this.pauta)
-        .then(resposta => {
+        .then(() => {
           this.listarPautas();
-          console.log(resposta);
           this.pauta.pauta = "";
           this.pauta.id_reuniao = "";
         })
@@ -475,16 +602,6 @@ export default {
 </script>
 
 <style scoped>
-.a-x2 {
-  font-size: 15px !important;
-  font-weight: 500;
-}
-
-.table th,
-.table td {
-  vertical-align: text-bottom;
-}
-
 @media (max-width: 991px) {
   [role="card"] {
     min-width: 100% !important;

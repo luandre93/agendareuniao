@@ -2,7 +2,7 @@
   <span>
     <div
       role="dd_note"
-      class="float-right waves-circle waves-effect text-white"
+      class="float-right waves-circle waves-effect"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="true"
@@ -62,11 +62,10 @@ export default {
       dtAtual: "",
       tituloM: "",
       comData: "",
-      cor: ""
+      cor: "#fff"
     };
   },
   mounted() {
-    this.escutarReunioes();
     this.dataAtual();
   },
   methods: {
