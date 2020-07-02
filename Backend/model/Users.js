@@ -8,11 +8,9 @@ module.exports = db.sequelize.define(
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-            unique: true
         },
         email: {
             type: Sequelize.STRING,
-            unique: true
         },
         nome: {
             type: Sequelize.STRING,

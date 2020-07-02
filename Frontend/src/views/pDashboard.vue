@@ -14,7 +14,7 @@
 
           <div class="col form-row">
             <div class="form-row mr-3 float-left">
-              <div class="form-row border-bottom">
+              <div class="form-row border-bottom block">
                 <span class="fa fa-search fa-lg fw pb-2 pt-2 mt-1"></span>
                 <input
                   type="search"
@@ -28,30 +28,10 @@
               </div>
             </div>
 
-            <div class="col mr-2">
-              <select
-                v-model="viewCards"
-                style="width: 200px;"
-                class="custom-select border-bottom border-top-0 border-left-0 border-right-0 rounded-0 float-right"
-              >
-                <option disabled>Tipo</option>
-                <option>Cartões</option>
-                <option>Pautas</option>
-              </select>
-            </div>
-            <div class="col-auto float-right">
-              <div
-                class="nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
-                style="background: #eee"
-                @click="visualizarComo()"
-              >
-                <span class="px-2 font-weight-bold">OK</span>
-              </div>
-            </div>
             <!--- Botão Adicionar -->
-            <div class="col-auto float-right">
+            <div class="col">
               <div
-                class="nav-link px-2 py-2 rounded-pill waves-effect waves-ripple"
+                class="nav-link px-2 py-2 rounded-pill waves-effect waves-ripple float-right"
                 data-toggle="modal"
                 style="background: #eee"
                 data-target="#publicarReuniao"
@@ -62,7 +42,7 @@
             </div>
           </div>
 
-          <div class="py-1 mx-0 border-bottom border-color-light"></div>
+          <div class="row py-1 border-bottom border-color-light"></div>
 
           <!--- Inicio dos Cartões de Reunião -->
 
@@ -136,7 +116,7 @@
                     >Gerar Ata</button>
                     <button
                       class="btn nav-link px-2 rounded-pill waves-effect bg-light float-right"
-                      @click="iniciarReuniao()"
+                      @click="iniciarReuniao(todo.id)"
                     >
                       <span class="fa fa-plus text-success fa-fw"></span>
                       <span class="pr-2 font-weight-bold">Iniciar</span>
@@ -165,10 +145,10 @@
                       <div class="row">
                         <div class="col-auto px-2 mt-3 float-left flex-column position-fixed">
                           <button
-                            class="btn waves-effect waves-circle font-weight-bold border-0 bg-success"
+                            class="btn waves-effect waves-circle font-weight-bold border-0"
                             @click.prevent="novaPauta(todo.id)"
                           >
-                            <a class="h5 text-white">+</a>
+                            <span class="fa fa-plus fa-lg"></span>
                           </button>
                         </div>
                         <!-- Pautas -->
@@ -367,7 +347,6 @@ import pautas from "@/services/pautas";
 import usuarios from "@/services/usuarios";
 import functions from "@/libs/transformardata";
 //import cNotificacao from "./views/components/cNotificacao.vue";
-import functions from "@/libs/transformardata";
 
 export default {
   data() {
@@ -438,12 +417,19 @@ export default {
     iniciarReuniao(id) {
       for (this.index in this.todosReuniao) {
         if (this.todosReuniao[this.index].id == id) {
+          this.comData = this.dataAtual();
           this.verData = functions.transformarData(
             this.todosReuniao[this.index].data
           );
-          this.comData = this.dataAtual();
 
           if (this.verData == this.comData) {
+            this.abrirModalReuniao = true;
+          } else {
+            alert(
+              "Não é possivel iniciar a Reunião, pois ela esta agendada para " +
+                this.verData +
+                " e só será liberada essa data."
+            );
           }
         }
       }
@@ -478,10 +464,6 @@ export default {
       this.reuniao.localizacao = "";
       this.reuniao.hora_inicial = "";
       this.reuniao.hora_final = "";
-    },
-
-    transformarData(event) {
-      return functions.transformarData(event);
     },
 
     excluirPauta(id) {

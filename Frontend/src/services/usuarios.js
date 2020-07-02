@@ -11,6 +11,14 @@ export default {
     },
     addUsuario: (usuario) => {
         return http.post("user", usuario)
+    },
+    LoginUsuario: (usuario) => {
+        return http.post("user/login", usuario)
+    },
+    AutenPerfil: (token) => {
+        return http.get("user/login/app", { headers: { 'Authorization': token } })
+
     }
+
 
 }

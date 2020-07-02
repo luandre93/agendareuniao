@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const ip = require("ip");
 
+
+
 //import libs
 const utils = require("./libs/utils")
 console.log("")
@@ -10,14 +12,17 @@ console.log(utils.cabecalho() + "[Carregando Bibliotecas...]")
 
 //var login = require("./routes/login");
 console.log(utils.cabecalho() + "[Carregando Rotas...]")
+
 const users = require("./routes/users");
 const reuniao = require("./routes/reuniao");
 const pautas = require("./routes/pauta");
+
 
 console.log(utils.cabecalho() + "[Definindo Variaveis...]")
 
 const port = 3000;
 const app = express()
+
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))

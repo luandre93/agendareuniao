@@ -1,7 +1,6 @@
 import Vue from 'vue';
-import App from './App.vue';
+import Root from './Root.vue';
 import router from '@/router';
-
 
 import 'typeface-roboto';
 import 'bootstrap/dist/js/waves-effect.js';
@@ -16,7 +15,6 @@ Vue.config.productionTip = false
 
 
 new Vue({
-  render: h => h(App),
+  render: h => h(Root),
   router
 }).$mount('#app')
-
