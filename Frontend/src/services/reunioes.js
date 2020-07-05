@@ -9,6 +9,9 @@ export default {
     ListarReuniaoID(id) {
         return http.get('users/reuniao/' + id)
     },
+    ListarReunioesID(id) {
+        return http.get('users/reunioes_id_usuario/' + id)
+    },
 
     delReuniao(id) {
         return http.delete("users/reuniao/" + id)

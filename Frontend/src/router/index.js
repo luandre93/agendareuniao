@@ -1,13 +1,13 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import Router from 'vue-router'
 import app from '@/App'
 import pUsuario from '@/views/pUsuario'
 import pDashboard from '@/views/pDashboard'
 import pReuniao from '@/views/pReuniao'
-import error404 from '@/views/Error404'
 import pLogin from '@/views/pLogin'
-import VueRouter from 'vue-router'
-
+import pRelatorio from '@/views/pRelatorio'
+import error404 from '@/views/Error404'
 
 
 Vue.use(Router)
@@ -26,6 +26,7 @@ export default new VueRouter({
                 { name: 'pUsuario', path: '/users', component: pUsuario },
                 { name: 'pDashboard', path: '/dashboard', component: pDashboard },
                 { name: 'pReuniao', path: '/dashboard/:id', component: pReuniao },
+                { name: 'pRelatorio', path: '/relatorios', component: pRelatorio },
 
             ]
         },

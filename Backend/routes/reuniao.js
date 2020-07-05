@@ -3,13 +3,13 @@ const router = express.Router()
 const Reuniao = require("../model/Reuniao")
 const utils = require("../libs/utils")
 
+//console.log(utils.cabecalho() + "[Ação: Acessando Reuniao] [ID: " + reuniao.id + "] [Titulo: " + reuniao.titulo + "] [Data: " + reuniao.data + "]")
 
 router.get("/users/reunioes", (req, res) => {
 
     Reuniao.findAll()
         .then(reuniao => {
             res.json(reuniao)
-
         })
         .catch(err => {
             res.send("erro ao carregar... Banco de dados! " + err)
@@ -28,7 +28,26 @@ router.get("/users/reuniao/:id", (req, res) => {
     })
         .then(reuniao => {
             res.json(reuniao)
-            console.log(utils.cabecalho() + "[Ação: Acessando Reuniao] [ID: " + reuniao.id + "] [Titulo: " + reuniao.titulo + "] [Data: " + reuniao.data + "]")
+
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+})
+
+// filtrar por id_usuario
+
+router.get("/users/reunioes_id_usuario/:id_usuario", (req, res) => {
+
+    Reuniao.findAll({
+        where: {
+            id_usuario: req.params.id_usuario,
+        },
+
+    })
+        .then(reuniao => {
+            res.json(reuniao)
+
         })
         .catch((err) => {
             res.send(err)

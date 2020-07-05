@@ -14,7 +14,15 @@
                 type="text"
                 v-model="usuario.nome"
                 class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
-                placeholder="Usuário"
+                placeholder="Nome"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="email"
+                v-model="usuario.email"
+                class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                placeholder="Email"
               />
             </div>
             <div class="col">
@@ -63,6 +71,7 @@
           <thead class="text-left bg-light">
             <td class="text-center">ID</td>
             <td class="text-center">Nome</td>
+            <td class="text-center">Email</td>
             <td class="text-center">Senha</td>
             <td class="text-center">Nivel</td>
             <td class="text-center">Status</td>
@@ -73,6 +82,7 @@
             <tr v-for="todo in todos" :key="todo.id">
               <td class="text-center">{{todo.id}}</td>
               <td class="text-center">{{todo.nome}}</td>
+              <td class="text-center">{{todo.email}}</td>
               <td class="text-center">{{todo.senha}}</td>
               <td class="text-center">{{todo.nivel}}</td>
               <td class="text-center">{{todo.cancelado}}</td>
@@ -102,7 +112,7 @@
 
 <script>
 import usuarios from "@/services/usuarios";
-
+//import jwtDecode from "jwt-decode";
 export default {
   data() {
     return {

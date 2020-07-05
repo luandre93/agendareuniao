@@ -32,7 +32,7 @@ import cNotificacao from "@/views/components/cNotificacao.vue";
 import cCalendario from "@/views/components/cCalendario.vue";
 import cNavBar from "@/views/components/cNavBar.vue";
 import usuarios from "@/services/usuarios";
-import EventBus from "@/views/EventBus.vue";
+import EventBus from "@/eventBus/EventBus";
 import router from "@/router/index";
 
 export default {
@@ -43,7 +43,8 @@ export default {
   },
   mounted() {
     this.autenticar();
-    this.$refs.cNotificacaoOne.escutarReunioes();
+    //this.$refs.cNotificacaoOne.escutarReunioes();
+
     EventBus.$on("logged-in", status => {
       this.auth = status;
     });
@@ -54,14 +55,6 @@ export default {
     return {
       auth: "",
       token: token,
-      usuario: {
-        id: "",
-        email: "",
-        nome: "",
-        senha: "",
-        nivel: "",
-        cancelado: ""
-      },
       dados: []
     };
   },
@@ -71,7 +64,7 @@ export default {
         .AutenPerfil(this.token)
         .then(res => {
           this.usuario = res.data;
-          console.log(this.usuario);
+          EventBus.$emit("usuario", this.usuario);
         })
         .catch(err => {
           console.log(err);

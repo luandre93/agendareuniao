@@ -1,5 +1,6 @@
 cd Backend
 start start.bat
+timeout 4
 cd ..
 cd frontend
 start start.bat

@@ -45,7 +45,7 @@
 <script>
 import usuarios from "@/services/usuarios";
 import router from "../router/index";
-import EventBus from "../views/EventBus";
+import EventBus from "@/eventBus/EventBus";
 export default {
   data() {
     return {
@@ -64,6 +64,7 @@ export default {
           localStorage.setItem("usertoken", res.data);
           this.email = "";
           this.senha = "";
+
           router.push({ name: "pDashboard" });
         })
         .catch(err => {

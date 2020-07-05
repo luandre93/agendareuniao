@@ -5,7 +5,7 @@
         <div class="col mb-2 shadow-sm border-0">
           <div class="py-3">
             <span class="fa fa-address-card fa-fw"></span>
-            <a class="font-weight-bolder ml-3 badge badge-info text-white p-2">Luandre Bernardi</a>
+            <a class="font-weight-bolder ml-3 badge badge-info text-white p-2">{{usuario.nome}}</a>
           </div>
         </div>
         <li class="nav-item waves-effect waves-block">
@@ -15,7 +15,7 @@
           </router-link>
         </li>
         <li class="nav-item waves-effect">
-          <router-link class="nav-link" to="/">
+          <router-link class="nav-link" to="/relatorios">
             <span class="fa fa-file-text-o fa-fw"></span>
             <a class="ml-3">Relatórios</a>
           </router-link>
@@ -42,3 +42,30 @@
   </nav>
 </template>
 
+
+
+<script>
+import EventBus from "@/eventBus/EventBus";
+
+export default {
+  data() {
+    return {
+      usuario: {
+        usuario: {
+          id: "",
+          email: "",
+          nome: "",
+          senha: "",
+          nivel: "",
+          cancelado: ""
+        }
+      }
+    };
+  },
+  created() {
+    EventBus.$on("usuario", usuarioCarregado => {
+      this.usuario = usuarioCarregado;
+    });
+  }
+};
+</script>

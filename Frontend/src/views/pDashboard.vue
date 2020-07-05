@@ -65,7 +65,7 @@
                       <div class="col">
                         <div class="h5 text-truncate" style="max-width: 220px;">{{todo.titulo}}</div>
 
-                        <div class="h6 pt-1" style="font-size: 14px;">Luandre Bernardi de Andrade</div>
+                        <div class="h6 pt-1" style="font-size: 14px;">{{usuario.nome}}</div>
                       </div>
 
                       <div class="col-2 float-right">
@@ -227,20 +227,6 @@
                   </div>
 
                   <div class="modal-body p-0">
-                    <div class="form-row mt-3 p-3">
-                      <div class="col-auto p-2">
-                        <span class="fa fa-user fa-lg fa-fw"></span>
-                      </div>
-                      <div class="col">
-                        <input
-                          type="text"
-                          v-model.trim="reuniao.id_usuario"
-                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
-                          placeholder="id_usuario"
-                          aria-describedby="helpId"
-                        />
-                      </div>
-                    </div>
                     <div class="form-row mt-2 p-3">
                       <div class="col-auto p-2">
                         <span class="fa fa-comments-o fa-lg fa-fw"></span>
@@ -344,9 +330,8 @@
 import $ from "jquery";
 import reunioes from "@/services/reunioes";
 import pautas from "@/services/pautas";
-import usuarios from "@/services/usuarios";
 import functions from "@/libs/transformardata";
-//import cNotificacao from "./views/components/cNotificacao.vue";
+import EventBus from "@/eventBus/EventBus";
 
 export default {
   data() {
@@ -355,6 +340,7 @@ export default {
       showModal: false,
       showPauta: true,
       mostrarCards: true,
+      usuario: EventBus.usuario,
       reuniao: {
         id: "",
         id_usuario: "",
@@ -374,32 +360,44 @@ export default {
         horario: "",
         comentario: ""
       },
-
       todosPauta: [],
       todosPautaF: [],
       todosReuniao: [],
-      usuarios: []
+      todosReunioes: []
     };
   },
 
   mounted() {
-    this.listarReunioes();
-    this.listarUsuarios();
-    this.listarPautas();
+    this.sleep(50).then(() => {
+      this.listarReunioesIdUsuario(this.usuario.id);
+      this.listarPautas();
+    });
+  },
+
+  created() {
+    EventBus.$on("usuario", usuarioCarregado => {
+      this.usuario = usuarioCarregado;
+      this.reuniao.id_usuario = this.usuario.id;
+    });
+    this.usuarios = EventBus.usuario;
+    this.reuniao.id_usuario = this.usuarios.id;
   },
 
   computed: {
     reunioesFiltradas() {
       const procurar = this.$route.query.procurar;
       return !procurar
-        ? this.todosReuniao
-        : this.todosReuniao.filter(t =>
+        ? this.todosReunioes
+        : this.todosReunioes.filter(t =>
             t.titulo.toLowerCase().includes(procurar.toLowerCase())
           );
     }
   },
 
   methods: {
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
     transformarData(x) {
       return functions.transformarData(x);
     },
@@ -415,11 +413,11 @@ export default {
     },
 
     iniciarReuniao(id) {
-      for (this.index in this.todosReuniao) {
-        if (this.todosReuniao[this.index].id == id) {
+      for (this.index in this.todosReunioes) {
+        if (this.todosReunioes[this.index].id == id) {
           this.comData = this.dataAtual();
           this.verData = functions.transformarData(
-            this.todosReuniao[this.index].data
+            this.todosReunioes[this.index].data
           );
 
           if (this.verData == this.comData) {
@@ -458,7 +456,6 @@ export default {
     },
 
     limparCampos() {
-      this.reuniao.id_usuario = "";
       this.reuniao.titulo = "";
       this.reuniao.categoria = "";
       this.reuniao.localizacao = "";
@@ -485,7 +482,7 @@ export default {
       reunioes
         .delReuniao(id)
         .then(() => {
-          this.listarReunioes();
+          this.listarReunioesIdUsuario(this.usuario.id);
         })
         .catch(err => {
           alert("Não foi possivel exluir Reunião... " + err);
@@ -493,8 +490,8 @@ export default {
     },
 
     atualizarPauta(id, pauta) {
-      if (pauta == "") {
-        alert("alguns campos estão vazios, favor preencha ou exclua.");
+      if (pauta == "" || pauta == pauta.trim) {
+        alert("campo está vazio, favor preencha ou exclua.");
       } else {
         this.pauta.pauta = pauta;
         this.pauta.id = id;
@@ -546,7 +543,7 @@ export default {
         reunioes
           .addReuniao(this.reuniao)
           .then(() => {
-            this.listarReunioes();
+            this.listarReunioesIdUsuario(this.usuario.id);
             this.limparCampos();
             $(".modal").modal("hide");
           })
@@ -556,11 +553,10 @@ export default {
       }
     },
 
-    //Listar Reuniões
-    listarReunioes() {
-      reunioes.ListarReuniao().then(resposta => {
-        this.todosReuniao = resposta.data;
-        this.todosReuniao.length == 0
+    listarReunioesIdUsuario(id) {
+      reunioes.ListarReunioesID(id).then(resposta => {
+        this.todosReunioes = resposta.data;
+        this.todosReunioes.length == 0
           ? (this.mostrarCards = false)
           : (this.mostrarCards = true);
       });
@@ -570,13 +566,6 @@ export default {
     listarPautas() {
       pautas.ListarPautas().then(resposta => {
         this.todosPauta = resposta.data;
-      });
-    },
-
-    //Listar Usuarios
-    listarUsuarios() {
-      usuarios.ListarUsuario().then(resposta => {
-        this.usuarios = resposta.data;
       });
     }
   }

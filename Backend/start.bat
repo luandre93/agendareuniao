@@ -14,4 +14,4 @@
 @echo                                    Y8b d88P                                              
 @echo                                     "Y88P"                                               
           
-@node .
+@nodemon .

@@ -52,7 +52,7 @@ router.delete("/user/:id", (req, res) => {
 
 
 
-router.post("/registro", (req, res) => {
+router.post("/user", (req, res) => {
 
     const userData = {
         nome: req.body.nome,
@@ -99,7 +99,7 @@ router.post("/user/login", (req, res) => {
             if (user) {
                 if (bcrypt.compareSync(req.body.senha, user.senha)) {
                     let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-                        expiresIn: 1440
+                        expiresIn: 8000
                     })
                     res.send(token)
                 } else {
@@ -115,24 +115,6 @@ router.post("/user/login", (req, res) => {
 })
 
 
-
-//create
-router.post("/user", (req, res) => {
-
-    if (!req.body.nome) {
-        res.status(400)
-        res.json({
-            error: "Bad Data!"
-        })
-    } else {
-        User.create(req.body).then(() => {
-            res.send("Usuário Adicionado.")
-        })
-            .catch(err => {
-                res.send("Error: " + err)
-            })
-    }
-})
 
 //autorização
 router.get('/user/login/app', (req, res) => {
