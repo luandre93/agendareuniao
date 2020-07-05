@@ -54,6 +54,8 @@ router.get("/users/reunioes_id_usuario/:id_usuario", (req, res) => {
         })
 })
 
+
+
 //delete
 
 router.delete("/users/reuniao/:id", (req, res) => {

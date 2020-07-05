@@ -51,7 +51,6 @@ router.delete("/user/:id", (req, res) => {
 })
 
 
-
 router.post("/user", (req, res) => {
 
     const userData = {

@@ -2,17 +2,18 @@
   <span>
     <div
       role="dd_note"
-      class="float-right waves-circle waves-effect"
+      class="float-right waves-circle waves-effect mx-1"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="true"
       @click="cor='#fff'"
-      style="margin-right:245px; background-color:#555;"
+      style=" background-color:#555;"
       :style="{color: cor}"
     >
       <span class="fa fa-bell fa-lg fa-fw" style="padding-top:11px"></span>
     </div>
-    <div class="dropdown-menu mt-2 rounded shadow-sm" style="width: 400px;">
+
+    <div class="dropdown-menu dropdown-menu-left mt-2 rounded shadow-sm" style="width: 400px;">
       <div class="text-center w-100 float-left mb-2">
         <h4 class="border-bottom pb-3">Notificações</h4>
       </div>
@@ -80,7 +81,7 @@ export default {
     };
   },
   mounted() {
-    this.sleep(50).then(() => {
+    this.sleep(100).then(() => {
       this.dataAtual();
       this.escutarReunioes(this.usuario.id);
     });

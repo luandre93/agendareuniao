@@ -9,6 +9,7 @@ export default {
     delUsuario: (id) => {
         return http.delete("user/" + id)
     },
+
     addUsuario: (usuario) => {
         return http.post("user", usuario)
     },

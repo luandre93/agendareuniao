@@ -47,7 +47,6 @@
           <!--- Inicio dos Cartões de Reunião -->
 
           <div class="row mt-3" v-if="mostrarCards">
-            <!--- <div v-if>-->
             <div
               v-for="todo in reunioesFiltradas"
               :key="todo.id"
@@ -70,12 +69,14 @@
 
                       <div class="col-2 float-right">
                         <div class="ml-3 form-row">
-                          <div class="btn px-0 py-0">
+                          <div class="btn px-0 py-0" data-toggle="tooltip" title="Disabled tooltip">
                             <span
-                              class="fa fa-chevron-right fa-lg text-white"
+                              class="fa fa-tasks fa-lg text-white"
+                              aria-hidden="true"
                               type="button"
                               :data-target="'#modal'+todo.id"
                               data-toggle="modal"
+                              @click="limparBtnSuccess()"
                             ></span>
                           </div>
                         </div>
@@ -118,8 +119,7 @@
                       class="btn nav-link px-2 rounded-pill waves-effect bg-light float-right"
                       @click="iniciarReuniao(todo.id)"
                     >
-                      <span class="fa fa-plus text-success fa-fw"></span>
-                      <span class="pr-2 font-weight-bold">Iniciar</span>
+                      <span class="px-2 font-weight-bold">Iniciar</span>
                     </button>
                   </div>
                 </div>
@@ -160,9 +160,12 @@
                             <div class="col row py-2" v-if="todoP.id_reuniao == todo.id">
                               <div class="col">
                                 <input
+                                  tabindex="1"
                                   type="textarea"
                                   v-model.trim="todoP.pauta"
-                                  @keyup.enter="atualizarPauta(todoP.id, todoP.pauta)"
+                                  @keydown.space="limparBtnSuccess(todoP.id)"
+                                  @keydown.delete="limparBtnSuccess(todoP.id)"
+                                  @keydown.enter="atualizarPauta(todoP.id, todoP.pauta)"
                                   class="form-control border-left border-right-0 border-top-0 rounded-0"
                                 />
                               </div>
@@ -179,7 +182,10 @@
                                   class="btn waves-effect float-right nav-link"
                                   @click="atualizarPauta(todoP.id, todoP.pauta)"
                                 >
-                                  <span class="fa fa-check-circle"></span>
+                                  <span
+                                    :style="{color: btnSuccess[todoP.id]}"
+                                    class="fa fa-check-circle"
+                                  ></span>
                                 </button>
                               </div>
                             </div>
@@ -192,7 +198,7 @@
                         type="button"
                         class="btn btn-secondary waves-effect"
                         data-dismiss="modal"
-                        @click="(listarPautas())"
+                        @click="listarPautas()"
                       >Voltar</button>
                     </div>
                   </div>
@@ -360,9 +366,9 @@ export default {
         horario: "",
         comentario: ""
       },
+      btnSuccess: [],
       todosPauta: [],
-      todosPautaF: [],
-      todosReuniao: [],
+      //todosReuniao: [],
       todosReunioes: []
     };
   },
@@ -371,6 +377,9 @@ export default {
     this.sleep(50).then(() => {
       this.listarReunioesIdUsuario(this.usuario.id);
       this.listarPautas();
+    });
+    $(function() {
+      $('[data-toggle="tooltip"]').tooltip();
     });
   },
 
@@ -401,6 +410,9 @@ export default {
     transformarData(x) {
       return functions.transformarData(x);
     },
+    limparBtnSuccess(id) {
+      this.btnSuccess[id] = "#000";
+    },
 
     dataAtual() {
       var data = new Date(),
@@ -419,7 +431,6 @@ export default {
           this.verData = functions.transformarData(
             this.todosReunioes[this.index].data
           );
-
           if (this.verData == this.comData) {
             this.abrirModalReuniao = true;
           } else {
@@ -473,10 +484,11 @@ export default {
           alert("Não foi possivel exluir pauta... " + err);
         });
     },
+
     excluirReuniao(id) {
       for (this.index in this.todosPauta) {
         if (this.todosPauta[this.index].id_reuniao == id) {
-          this.excluirPauta(this.todosPauta[this.index].id);
+          pautas.delPauta(this.todosPauta[this.index].id);
         }
       }
       reunioes
@@ -495,14 +507,13 @@ export default {
       } else {
         this.pauta.pauta = pauta;
         this.pauta.id = id;
-
+        this.btnSuccess[id] = "#3CB371";
         pautas
           .atualizarPauta(id, this.pauta)
           .then(() => {
             this.listarPautas();
             this.pauta.pauta = "";
             this.pauta.id = "";
-            alert("Salvo com sucesso!");
           })
           .catch(err => {
             alert("Não foi possivel atualizar pauta... " + err);

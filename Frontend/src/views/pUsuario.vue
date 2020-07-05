@@ -83,7 +83,7 @@
               <td class="text-center">{{todo.id}}</td>
               <td class="text-center">{{todo.nome}}</td>
               <td class="text-center">{{todo.email}}</td>
-              <td class="text-center">{{todo.senha}}</td>
+              <td class="text-center">**********</td>
               <td class="text-center">{{todo.nivel}}</td>
               <td class="text-center">{{todo.cancelado}}</td>
               <td class="text-center">
@@ -97,7 +97,7 @@
               <td class="text-center">
                 <button
                   class="btn btn-sm btn-danger ml-1 rounded-0 waves-effect"
-                  v-on:click="deletarUsuario(todo.id)"
+                  v-on:click="excluirUsuario(todo.id)"
                 >
                   <i class="fa fa-trash-o"></i>
                 </button>
@@ -112,6 +112,9 @@
 
 <script>
 import usuarios from "@/services/usuarios";
+import reunioes from "@/services/reunioes";
+import pautas from "@/services/pautas";
+
 //import jwtDecode from "jwt-decode";
 export default {
   data() {
@@ -124,11 +127,14 @@ export default {
         nivel: "",
         cancelado: ""
       },
-      todos: []
+      todos: [],
+      todosReunioes: []
     };
   },
   mounted() {
-    this.listarUsuario();
+    this.listarUsuarios();
+    this.listarReunioes();
+    this.listarPautas();
   },
 
   methods: {
@@ -151,7 +157,7 @@ export default {
         .then(() => {
           this.usuario.nivel = "";
           this.usuario.cancelado = "";
-          this.listarUsuario();
+          this.listarUsuarios();
           alert("Usuario Adicionado com sucesso!");
         })
         .catch(() => {
@@ -161,23 +167,47 @@ export default {
         });
     },
 
-    deletarUsuario(id) {
-      alert(this.usuario.nome);
-      usuarios
-        .delUsuario(id)
-        .then(() => {
-          this.listarUsuario();
-        })
-        .catch(() => {
-          alert("Erro ao deletar usuario!");
-        });
+    excluirUsuario(id) {
+      this.excluirReunioes(id);
+      usuarios.delUsuario(id).then(() => {
+        this.listarUsuarios();
+      });
     },
 
-    listarUsuario() {
+    excluirReunioes(id_usuario) {
+      for (this.indexR in this.todosReunioes) {
+        if (this.todosReunioes[this.indexR].id_usuario == id_usuario) {
+          this.excluirPautas(this.todosReunioes[this.indexR].id);
+          reunioes.delReuniao(this.todosReunioes[this.indexR].id);
+        }
+      }
+    },
+
+    excluirPautas(id_reuniao) {
+      for (this.indexP in this.todosPauta) {
+        if (this.todosPauta[this.indexP].id_reuniao == id_reuniao) {
+          pautas.delPauta(this.todosPauta[this.indexP].id);
+        }
+      }
+    },
+
+    listarPautas() {
+      pautas.ListarPautas().then(resposta => {
+        this.todosPauta = resposta.data;
+      });
+    },
+
+    listarUsuarios() {
       usuarios.ListarUsuario().then(resposta => {
         this.todos = resposta.data;
         this.usuario.nivel = "";
         this.usuario.cancelado = "";
+      });
+    },
+
+    listarReunioes() {
+      reunioes.ListarReuniao().then(resposta => {
+        this.todosReunioes = resposta.data;
       });
     }
   },

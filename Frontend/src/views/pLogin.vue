@@ -23,7 +23,7 @@
         <label for="inputPassword" class="sr-only">Senha</label>
         <input
           type="password"
-          id="inputPassword"
+          id="current-password"
           class="form-control rounded-0"
           v-model="usuario.senha"
           placeholder="Senha"

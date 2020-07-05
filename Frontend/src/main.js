@@ -14,6 +14,8 @@ import 'font-awesome/css/font-awesome.min.css';
 Vue.config.productionTip = false
 
 
+
+
 new Vue({
   render: h => h(Root),
   router

@@ -1,12 +1,14 @@
-
 <template>
   <div class="container-fluid" id="menu">
-    <nav class="navbar-expand-sm navbar-dark py-1 border-bottom shadow-sm bg-dark fixed-top">
+    <nav class="nav navbar-expand-sm navbar-dark py-1 border-bottom shadow-sm bg-dark fixed-top">
       <div class="navbar-brand pl-2 pr-2 border-0" style="width: 210px; margin-left:15px">
         <a class="mx-5">CoAgendei.</a>
       </div>
       <!-- Alerta sobre a Reunião -->
-      <cNotificacao ref="cNotificacaoOne" />
+      <div class="col float-right" role="dd_note">
+        <cSaida />
+        <cNotificacao ref="cNotificacaoOne" />
+      </div>
     </nav>
     <div id="app">
       <!-- Calendario-->
@@ -30,6 +32,7 @@
 <script>
 import cNotificacao from "@/views/components/cNotificacao.vue";
 import cCalendario from "@/views/components/cCalendario.vue";
+import cSaida from "@/views/components/cSaida.vue";
 import cNavBar from "@/views/components/cNavBar.vue";
 import usuarios from "@/services/usuarios";
 import EventBus from "@/eventBus/EventBus";
@@ -39,12 +42,12 @@ export default {
   components: {
     cNotificacao,
     cCalendario,
-    cNavBar
+    cNavBar,
+    cSaida
   },
   mounted() {
+    this.VerificarUsuario();
     this.autenticar();
-    //this.$refs.cNotificacaoOne.escutarReunioes();
-
     EventBus.$on("logged-in", status => {
       this.auth = status;
     });
@@ -74,6 +77,12 @@ export default {
 
     logout() {
       localStorage.removeItem("usertoken");
+    },
+    VerificarUsuario() {
+      if (EventBus.usuario == "") {
+        router.push({ name: "pLogin" });
+        localStorage.usertoken = "";
+      }
     }
   }
 };
@@ -108,6 +117,12 @@ body {
   }
   [role="dd_note"] {
     margin-right: 40px !important;
+    margin-left: 0 !important;
+  }
+}
+@media (min-width: 991px) {
+  [role="dd_note"] {
+    margin-right: 180px !important;
     margin-left: 0 !important;
   }
 }

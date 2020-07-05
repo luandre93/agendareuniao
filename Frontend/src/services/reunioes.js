@@ -18,6 +18,6 @@ export default {
     },
     addReuniao(reuniao) {
         return http.post("users/reuniao", reuniao)
-    }
+    },
 
 }

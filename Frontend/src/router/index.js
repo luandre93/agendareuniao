@@ -19,7 +19,7 @@ export default new VueRouter({
         { path: '/login', name: 'pLogin', component: pLogin },
         //Rota da Aplicação
         {
-            path: 'app',
+            path: '/app',
             name: 'app',
             component: app,
             children: [
