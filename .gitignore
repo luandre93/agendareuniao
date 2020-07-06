@@ -1,5 +1,8 @@
 Backend/node_modules/*
 Frontend/node_modules/*
+Frontend/dist/*
+Deploy/*
+node_modules/*
 node_modules/@fortawesome/fontawesome-free/LICENSE.txt
 node_modules/@fortawesome/fontawesome-free/package.json
 node_modules/@fortawesome/fontawesome-free/css/all.css

@@ -155,14 +155,20 @@ export default {
       usuarios
         .addUsuario(this.usuario)
         .then(() => {
+          this.usuario.nome = "";
+          this.usuario.senha = "";
           this.usuario.nivel = "";
+          this.usuario.email = "";
           this.usuario.cancelado = "";
           this.listarUsuarios();
           alert("Usuario Adicionado com sucesso!");
         })
         .catch(() => {
           alert("Erro ao adicionar !");
+          this.usuario.nome = "";
+          this.usuario.senha = "";
           this.usuario.nivel = "";
+          this.usuario.email = "";
           this.usuario.cancelado = "";
         });
     },

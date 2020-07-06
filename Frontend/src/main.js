@@ -3,6 +3,7 @@ import Root from './Root.vue';
 import router from '@/router';
 
 import 'typeface-roboto';
+import '@/assets/css/custom.css'
 import 'bootstrap/dist/js/waves-effect.js';
 import 'bootstrap/js/dist/modal.js';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -12,7 +13,6 @@ import 'font-awesome/css/font-awesome.min.css';
 
 
 Vue.config.productionTip = false
-
 
 
 

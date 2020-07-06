@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <nav class="navbar-expand-sm navbar-dark py-1 border-bottom shadow-sm bg-dark fixed-top">
+  <div class="container" id="menu">
+    <nav class="nav navbar-dark border-bottom shadow-sm bg-dark fixed-top py-1">
       <div class="navbar-brand pl-2 pr-2 border-0" style="width: 210px; margin-left:15px">
-        <a class="mx-5">CoAgendei.</a>
+        <span class="mx-5 h5">CoAgendei.</span>
       </div>
     </nav>
 
@@ -14,7 +14,7 @@
         <input
           type="email"
           id="inputEmail"
-          class="form-control rounded-0"
+          class="form-control rounded-0 border"
           v-model="usuario.email"
           placeholder="Endereço de Email"
           required
@@ -24,7 +24,7 @@
         <input
           type="password"
           id="current-password"
-          class="form-control rounded-0"
+          class="form-control rounded-0 border"
           v-model="usuario.senha"
           placeholder="Senha"
           required
@@ -64,13 +64,16 @@ export default {
           localStorage.setItem("usertoken", res.data);
           this.email = "";
           this.senha = "";
-
-          router.push({ name: "pDashboard" });
+          if (res) {
+            this.emitMethod();
+            router.push({ name: "pDashboard" });
+          } else {
+            alert("Usuário ou a senha está incorreto.");
+          }
         })
-        .catch(err => {
-          alert(err + err.data);
+        .catch(() => {
+          alert("Usuário ou a senha está incorreto.");
         });
-      this.emitMethod();
     },
     emitMethod() {
       EventBus.$emit("logged-in", "loggedin");
@@ -82,45 +85,5 @@ export default {
 <style>
 .border-color-light {
   border-color: #eee !important;
-}
-
-body {
-  height: 100% !important;
-
-  font-family: system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
-    Fira Sans, Ubuntu, Oxygen, Oxygen Sans, Cantarell, Droid Sans,
-    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Lucida Grande, Helvetica,
-    Arial, sans-serif !important;
-}
-
-.form-signin {
-  width: 100%;
-  height: 100% !important;
-  max-width: 400px;
-  padding: 20px;
-  margin: auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }
 </style>

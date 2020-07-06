@@ -1,0 +1,170 @@
+.border-color-light {
+    border-color: #eee !important;
+  }
+  
+  @media (max-width: 991px) {
+    [role="root"] {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+   
+  }
+
+  @media (max-width: 1366px) {
+    [role="root"] {
+      margin-right: 0 !important;
+    }
+  }
+  
+  [role="main"] {
+    padding-top: 35px !important; /* Space for fixed navbar */
+  }
+  
+  @media (min-width: 766px) {
+    [role="main"] {
+      padding-top: 35px !important; /* Space for fixed navbar */
+    }
+  }
+  @media (min-width: 992px) {
+    [role="main"] {
+      width: 100% !important;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+  }
+  
+
+  .shadow-custom {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !important;
+  }
+  /*
+   * Sidebar
+   */
+  
+  .sidebar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    text-align: left;
+    position: fixed;
+    min-width: 210px;
+    width: 210px;
+    height: 100%;
+  }
+  
+  .calendar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    text-align: left;
+    position: fixed;
+    min-width: 240px;
+    width: 240px;
+    height: 100%;
+    right: 15px;
+    margin-top: 35px;
+    height: 15rem;
+  }
+  
+  .sidebar-sticky {
+    position: fixed;
+    top: 0;
+    height: calc(80vh - 50px);
+    padding-top: 3rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+  
+  .sidebar .nav-link {
+    font-weight: 380;
+    color: #333;
+    font-size: 14px !important;
+  }
+  
+  .sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+  }
+  
+  .sidebar .nav-link.active {
+    color: #007bff67;
+  }
+  
+  .nav-link:hover {
+    background-color: #177db83a;
+    color: #333 !important;
+  }
+  
+  .nav-link-noti:hover {
+    background-color: rgba(98, 98, 98, 0.274);
+    color: rgb(0, 0, 0);
+  }
+  
+  .sidebar .nav-link:hover .feather,
+  .sidebar .nav-link.active .feather {
+    color: inherit;
+  }
+  
+  .sidebar-heading {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+  }
+  
+  .active-nav-link {
+    background-color: #177db83a;
+    color: #333 !important;
+  }
+  
+  nav .router-link-active {
+    color: rgba(255, 255, 255, 0.25);
+    font-weight: 700;
+  }
+  
+  /*
+   * Navbar
+   */
+  
+  .navbar-brand {
+   
+    
+    background-color: rgba(0, 0, 0, 0.25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+  }
+  
+   
+  
+  input:focus,
+  button:focus,
+  select:focus {
+    background-color: #fff;
+    box-shadow: none !important;
+  }
+  
+.form-signin {
+  width: 100%;
+  height: 100% !important;
+  max-width: 400px;
+  padding: 20px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

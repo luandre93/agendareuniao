@@ -7,7 +7,7 @@ import pDashboard from '@/views/pDashboard'
 import pReuniao from '@/views/pReuniao'
 import pLogin from '@/views/pLogin'
 import pRelatorio from '@/views/pRelatorio'
-import error404 from '@/views/Error404'
+//import error404 from '@/views/Error404'
 
 
 Vue.use(Router)
@@ -27,12 +27,12 @@ export default new VueRouter({
                 { name: 'pDashboard', path: '/dashboard', component: pDashboard },
                 { name: 'pReuniao', path: '/dashboard/:id', component: pReuniao },
                 { name: 'pRelatorio', path: '/relatorios', component: pRelatorio },
-
+                //  { path: '*', component: error404 }
             ]
         },
         //Redirecionamento da Pagina
         { path: '/', redirect: '/login' },
         //Rota Curinga
-        { path: '*', component: error404 }
+
     ]
 })
