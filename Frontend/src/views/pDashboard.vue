@@ -161,10 +161,12 @@
                               <div class="col">
                                 <input
                                   tabindex="1"
+                                  placeholder="Escreva sua pauta aqui..."
                                   type="textarea"
                                   v-model.trim="todoP.pauta"
                                   @keydown.space="limparBtnSuccess(todoP.id)"
                                   @keydown.delete="limparBtnSuccess(todoP.id)"
+                                  @keydown.tab="atualizarPauta(todoP.id, todoP.pauta)"
                                   @keydown.enter="atualizarPauta(todoP.id, todoP.pauta)"
                                   class="form-control border-left border-right-0 border-top-0 rounded-0"
                                 />
@@ -195,6 +197,7 @@
                     </div>
                     <div class="modal-footer">
                       <button
+                        tabindex="1"
                         type="button"
                         class="btn btn-secondary waves-effect"
                         data-dismiss="modal"
@@ -524,7 +527,7 @@ export default {
     // Função de Nova Pauta
     novaPauta(id) {
       this.pauta.id_reuniao = id;
-      this.pauta.pauta = "Escreva sua pauta aqui...";
+      this.pauta.pauta = "";
       pautas
         .addPauta(this.pauta)
         .then(() => {
