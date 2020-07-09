@@ -30,6 +30,25 @@ router.get("/users/reuniao/pauta/:id", (req, res) => {
         })
 })
 
+
+
+router.get("/users/reuniao/pauta_id_reuniao/:id_reuniao", (req, res) => {
+
+    Pauta.findAll({
+        where: {
+            id_reuniao: req.params.id_reuniao,
+        },
+
+    })
+        .then(pauta => {
+            res.json(pauta)
+
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+})
+
 //delete
 
 router.delete("/users/reuniao/pauta/:id", (req, res) => {

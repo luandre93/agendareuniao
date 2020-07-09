@@ -6,6 +6,9 @@ export default {
         return http.get('users/reunioes/pautas')
     },
 
+    ListarPautasID(id) {
+        return http.get('users/reuniao/pauta_id_reuniao/' + id)
+    },
 
     delPauta(id) {
         return http.delete("users/reuniao/pauta/" + id)

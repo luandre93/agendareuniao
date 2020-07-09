@@ -54,6 +54,7 @@
 import reunioes from "@/services/reunioes";
 import functions from "@/libs/transformardata";
 import EventBus from "@/eventBus/EventBus";
+
 export default {
   data() {
     return {
@@ -69,7 +70,6 @@ export default {
         hora_final: "",
         cancelada: ""
       },
-      index: 0,
       mostrarNotificacao: true,
       todos: [],
       usuarios: [],
@@ -105,12 +105,6 @@ export default {
   },
 
   methods: {
-    getNotificacao() {
-      return localStorage.getItem("usernotificacao");
-    },
-    setNotificacao(a) {
-      localStorage.setItem("usernotificacao", a);
-    },
     sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     },
@@ -131,9 +125,12 @@ export default {
     escutarReunioes(id) {
       reunioes.ListarReunioesID(id).then(resposta => {
         this.todos = resposta.data;
-        this.todos.length == 0
-          ? (this.mostrarNotificacao = false)
-          : (this.mostrarNotificacao = true);
+        if (this.todosList.length == 0) {
+          this.mostrarNotificacao = false;
+        } else {
+          this.mostrarNotificacao = true;
+          this.cor = "rgb(233, 67, 88)";
+        }
       });
     }
   }

@@ -48,6 +48,9 @@ module.exports = db.sequelize.define(
             type: Sequelize.INTEGER,
             allowNull: false,
         },
+        cor: {
+            type: Sequelize.STRING,
+        },
 
     },
     {

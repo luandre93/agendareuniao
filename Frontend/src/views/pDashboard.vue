@@ -48,7 +48,7 @@
 
           <div class="row mt-3" v-if="mostrarCards">
             <div
-              v-for="todo in reunioesFiltradas"
+              v-for="todo in reunioesFiltradas.slice().reverse()"
               :key="todo.id"
               class="row col-auto py-2"
               style="font-size: 13px !important;"
@@ -59,7 +59,7 @@
                   role="card"
                   style="width: 19rem; border-color:#ebeef5!important "
                 >
-                  <div class="card-header rounded p-3 gradient-bg-blue">
+                  <div class="card-header rounded p-3" :class="todo.cor">
                     <div class="text-white form-row">
                       <div class="col">
                         <div class="h5 text-truncate" style="max-width: 220px;">{{todo.titulo}}</div>
@@ -319,6 +319,21 @@
                           aria-describedby="helpId"
                         />
                       </div>
+                      <div class="col-auto py-2">
+                        <span class>Cor</span>
+                      </div>
+                      <div class="col">
+                        <select
+                          v-model="reuniao.cor"
+                          class="form-control border-left-0 border-right-0 border-top-0 rounded-0"
+                        >
+                          <option
+                            v-for="option in options"
+                            :key="option.id"
+                            v-bind:value="option.value"
+                          >{{ option.text }}</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div class="modal-footer border-0 pt-3">
@@ -341,7 +356,7 @@ import reunioes from "@/services/reunioes";
 import pautas from "@/services/pautas";
 import functions from "@/libs/transformardata";
 import EventBus from "@/eventBus/EventBus";
-
+import router from "@/router/index.js";
 export default {
   data() {
     return {
@@ -360,7 +375,8 @@ export default {
         hora_inicial: "",
         hora_final: "",
         cancelada: "",
-        iniciada: ""
+        iniciada: "",
+        cor: "Azul"
       },
       pauta: {
         id: "",
@@ -369,9 +385,14 @@ export default {
         horario: "",
         comentario: ""
       },
+      options: [
+        { text: "Azul", value: "gradient-bg-blue" },
+        { text: "Vermelho", value: "gradient-bg-red" },
+        { text: "Amarelo", value: "gradient-bg-yellow" },
+        { text: "Verde", value: "gradient-bg-green" }
+      ],
       btnSuccess: [],
       todosPauta: [],
-      //todosReuniao: [],
       todosReunioes: []
     };
   },
@@ -380,9 +401,6 @@ export default {
     this.sleep(50).then(() => {
       this.listarReunioesIdUsuario(this.usuario.id);
       this.listarPautas();
-    });
-    $(function() {
-      $('[data-toggle="tooltip"]').tooltip();
     });
   },
 
@@ -417,32 +435,52 @@ export default {
       this.btnSuccess[id] = "#000";
     },
 
-    dataAtual() {
-      var data = new Date(),
-        dia = data.getDate().toString(),
-        diaF = dia.length == 1 ? "0" + dia : dia,
-        mes = (data.getMonth() + 1).toString(),
-        mesF = mes.length == 1 ? "0" + mes : mes,
-        anoF = data.getFullYear();
-      return diaF + "/" + mesF + "/" + anoF;
-    },
-
     iniciarReuniao(id) {
-      for (this.index in this.todosReunioes) {
-        if (this.todosReunioes[this.index].id == id) {
-          this.comData = this.dataAtual();
-          this.verData = functions.transformarData(
-            this.todosReunioes[this.index].data
-          );
-          if (this.verData == this.comData) {
-            this.abrirModalReuniao = true;
-          } else {
+      for (this.index in this.reunioesFiltradas) {
+        if (this.reunioesFiltradas[this.index].id == id) {
+          if (
+            functions.compareDates(
+              functions.transformarData(this.reunioesFiltradas[this.index].data)
+            ) == "dataFuturo"
+          ) {
+            alert(
+              "Não é possivel iniciar a Reunião, pois ela esta agendada para " +
+                functions.transformarData(
+                  this.reunioesFiltradas[this.index].data
+                ) +
+                " e só será liberada essa data."
+            );
+          }
+          if (
+            functions.compareDates(
+              functions.transformarData(this.reunioesFiltradas[this.index].data)
+            ) == "dataPassado"
+          ) {
+            alert(
+              "Essa reunião já passou da data agendada e está bloqueada para iniciar!"
+            );
+          }
+          if (
+            functions.compareDates(
+              functions.transformarData(this.reunioesFiltradas[this.index].data)
+            ) == "dataAtual"
+          ) {
+            router.push({ name: "pReuniao", params: { id: id } });
+          }
+          /*
+          if (this.verData < this.comData) {
+            alert(
+              "Essa reunião já passou da data agendada e está bloqueada para iniciar!"
+            );
+          } else if (this.verData > this.comData) {
             alert(
               "Não é possivel iniciar a Reunião, pois ela esta agendada para " +
                 this.verData +
                 " e só será liberada essa data."
             );
-          }
+          } else {
+            router.push({ name: "pReuniao", params: { id: id } });
+          }*/
         }
       }
     },
@@ -594,33 +632,36 @@ export default {
   }
 }
 
-td {
-  font-size: 10pt;
-}
-
 .shadow-custom {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .gradient-bg-blue {
-  background: rgb(96, 108, 136); /* Old browsers */
-  background: -moz-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(96, 108, 136, 1) 10%,
-    rgba(63, 76, 107, 1) 86%
-  ); /* FF3.6-15 */
-  background: -webkit-radial-gradient(
-    center,
-    ellipse cover,
-    rgba(96, 108, 136, 1) 10%,
-    rgba(63, 76, 107, 1) 86%
-  ); /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(
     ellipse at center,
     rgba(96, 108, 136, 1) 10%,
     rgba(63, 76, 107, 1) 86%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=1 );
+}
+.gradient-bg-red {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(136, 96, 96) 10%,
+    rgb(107, 63, 63) 86%
+  );
+}
+.gradient-bg-yellow {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(138, 139, 77) 10%,
+    rgb(128, 128, 64) 86%
+  );
+}
+.gradient-bg-green {
+  background: radial-gradient(
+    ellipse at center,
+    rgb(115, 173, 97) 10%,
+    rgb(97, 144, 81) 86%
+  );
 }
 </style>

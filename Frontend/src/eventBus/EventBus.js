@@ -10,11 +10,18 @@ export default new Vue({
             nivel: undefined,
             cancelado: undefined
         },
+        notificar: ""
     },
 
     created() {
         this.$on("usuario", usuarioCarregado => {
             this.usuario = usuarioCarregado;
-        });
-    }
+        })
+        // this.$on("Notificacao ", Notificacao => {
+        //    this.notificar = Notificacao;
+        // })
+
+    },
+
+
 });

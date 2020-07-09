@@ -7,7 +7,7 @@
       <!-- Alerta sobre a Reunião -->
       <div class="col float-right">
         <cSaida />
-        <cNotificacao ref="cNotificacaoOne" />
+        <cNotificacao ref="cNotificacaoRef" />
       </div>
     </nav>
     <div id="app">
@@ -48,9 +48,6 @@ export default {
   mounted() {
     this.verificarUsuario();
     this.autenticar();
-    EventBus.$on("logged-in", status => {
-      this.auth = status;
-    });
   },
 
   data() {
