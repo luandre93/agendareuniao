@@ -168,6 +168,7 @@
                                   @keydown.delete="limparBtnSuccess(todoP.id)"
                                   @keydown.tab="atualizarPauta(todoP.id, todoP.pauta)"
                                   @keydown.enter="atualizarPauta(todoP.id, todoP.pauta)"
+                                  @change="atualizarPauta(todo.id, todo.pauta)"
                                   class="form-control border-left border-right-0 border-top-0 rounded-0"
                                 />
                               </div>
@@ -467,20 +468,6 @@ export default {
           ) {
             router.push({ name: "pReuniao", params: { id: id } });
           }
-          /*
-          if (this.verData < this.comData) {
-            alert(
-              "Essa reunião já passou da data agendada e está bloqueada para iniciar!"
-            );
-          } else if (this.verData > this.comData) {
-            alert(
-              "Não é possivel iniciar a Reunião, pois ela esta agendada para " +
-                this.verData +
-                " e só será liberada essa data."
-            );
-          } else {
-            router.push({ name: "pReuniao", params: { id: id } });
-          }*/
         }
       }
     },

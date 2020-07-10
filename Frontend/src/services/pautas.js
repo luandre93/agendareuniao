@@ -20,5 +20,8 @@ export default {
     atualizarPauta(id, pauta) {
         return http.put("users/reuniao/pauta/" + id, pauta)
     },
+    atualizarPautaComentario(id, comentario) {
+        return http.put("users/reuniao/pauta_comentario/" + id, comentario)
+    },
 
 }

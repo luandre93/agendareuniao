@@ -106,5 +106,29 @@ router.put("/users/reuniao/pauta/:id", (req, res) => {
     }
 })
 
+router.put("/users/reuniao/pauta_comentario/:id", (req, res) => {
+    if (!req.body.comentario) {
+        res.status(400)
+        res.json({
+            error: "Bad Data"
+        })
+    } else {
+        Pauta.update({
+            horario: req.body.horario,
+            comentario: req.body.comentario
+        },
+            {
+                where: {
+                    id: req.params.id
+                }
+            }
+        )
+            .then(() => {
+                res.send("Comentario Atualizada!")
+            })
+            .error(err => res.send(err))
+    }
+})
+
 
 module.exports = router
