@@ -5,6 +5,10 @@ export default {
     ListarUsuario: () => {
         return http.get('users')
     },
+    ListarUsuarioID: (id) => {
+        return http.get('user/' + id)
+    },
+
 
     delUsuario: (id) => {
         return http.delete("user/" + id)

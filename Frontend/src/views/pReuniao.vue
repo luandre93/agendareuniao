@@ -50,22 +50,24 @@
               </div>
             </div>
           </div>
-          <div class="container">
+          <div class="container-fluid">
             <div class="col-auto">
               <div class="row" v-for="todo in todosPautaFiltrado" :key="todo.id">
                 <div class="col py-3">
                   <ul class="list-group">
-                    <li class="list-group-item px-2">
-                      <div class>
-                        <span class="fa fa-chevron-right h5 px-2 pr-3"></span>
-                        <span class="font">{{todo.pauta}}</span>
-                        <div class="float-right">
-                          <button
-                            class="btn waves-effect float-right nav-link"
-                            @click="atualizarPauta(todo.id, todo.comentario)"
-                          >
-                            <span :style="{color: btnSuccess[todo.id]}" class="fa fa-check-circle"></span>
-                          </button>
+                    <li class="list-group-item">
+                      <div class="row">
+                        <div class="text-body">
+                          <span
+                            class="fa fa-chevron-right alert-info p-2 rounded mr-2 text-white bg-dark"
+                          ></span>
+                          <span class="text-body alert-info p-2 rounded">{{todo.pauta}}</span>
+                        </div>
+                        <div class="float-right my-auto col">
+                          <span
+                            :style="{color: btnSuccess[todo.id]}"
+                            class="fa fa-check-circle fa-1x float-right"
+                          ></span>
                         </div>
                       </div>
                     </li>

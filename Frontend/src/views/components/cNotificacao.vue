@@ -13,7 +13,7 @@
       <span class="fa fa-bell fa-lg fa-fw" style="padding-top:11px"></span>
     </div>
 
-    <div class="dropdown-menu dropdown-menu-left mt-2 rounded shadow-sm" style="width: 400px;">
+    <div class="dropdown-menu dropdown-menu-left mt-2 rounded shadow-sm" style="width: 325px;">
       <div class="text-center w-100 float-left mb-2">
         <h4 class="border-bottom pb-3">Notificações</h4>
       </div>
@@ -23,11 +23,11 @@
           <li
             v-for="todo in todosList"
             :key="todo.id"
-            class="list-group-item d-flex justify-content-between align-items-center nav-link-noti border-0 rounded-pill"
+            class="list-group-item d-flex align-items-center nav-link-noti border-0 rounded-pill"
           >
-            <div class="col-auto font-weight-bolder">
-              <div class="col-auto p-1 h6 text-truncate">
-                <b class style>{{todo.titulo}}</b> está agendada para hoje.
+            <div class="mx-auto text-center font-weight-bolder">
+              <div class="col-auto p-1 h6 text-truncate text-body text-left">
+                <b>{{todo.titulo}}</b> está agendada para hoje.
               </div>
               <span class="fa fa-clock-o fa-lg fa-fw"></span>
               <span class="p-2">Inicio: {{todo.hora_inicial}}</span>
@@ -129,7 +129,7 @@ export default {
           this.mostrarNotificacao = false;
         } else {
           this.mostrarNotificacao = true;
-          this.cor = "rgb(233, 67, 88)";
+          this.cor = "#ff9f2f";
         }
       });
     }

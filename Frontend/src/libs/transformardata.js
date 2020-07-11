@@ -22,6 +22,7 @@ export default {
         }
         return b[2] + "/" + b[1] + "/" + b[0]
     },
+
     compareDates(date) {
         var today = this.dataAtual()
             .split("/")
@@ -61,5 +62,9 @@ export default {
             .reverse()
             .join("");
     },
+
+    transformarHora(x) {
+        return parseInt(x.split(":").toString().replace(/,/g, ""))
+    }
 
 }

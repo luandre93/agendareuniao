@@ -119,7 +119,7 @@
                       class="btn nav-link px-2 rounded-pill waves-effect bg-light float-right"
                       @click="iniciarReuniao(todo.id)"
                     >
-                      <span class="px-2 font-weight-bold">Iniciar</span>
+                      <span class="px-2 font-weight-bold">Entrar</span>
                     </button>
                   </div>
                 </div>
@@ -445,7 +445,7 @@ export default {
             ) == "dataFuturo"
           ) {
             alert(
-              "Não é possivel iniciar a Reunião, pois ela esta agendada para " +
+              "Não é possivel entrar na Reunião, pois ela esta agendada para " +
                 functions.transformarData(
                   this.reunioesFiltradas[this.index].data
                 ) +
@@ -458,7 +458,7 @@ export default {
             ) == "dataPassado"
           ) {
             alert(
-              "Essa reunião já passou da data agendada e está bloqueada para iniciar!"
+              "Essa reunião já passou da data agendada e está bloqueada para entrar!"
             );
           }
           if (
@@ -633,15 +633,15 @@ export default {
 .gradient-bg-red {
   background: radial-gradient(
     ellipse at center,
-    rgb(136, 96, 96) 10%,
-    rgb(107, 63, 63) 86%
+    rgb(156, 90, 90) 10%,
+    rgb(136, 77, 77) 86%
   );
 }
 .gradient-bg-yellow {
   background: radial-gradient(
     ellipse at center,
-    rgb(138, 139, 77) 10%,
-    rgb(128, 128, 64) 86%
+    rgb(172, 173, 80) 10%,
+    rgb(141, 141, 66) 86%
   );
 }
 .gradient-bg-green {

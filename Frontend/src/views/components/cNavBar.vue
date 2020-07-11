@@ -5,7 +5,10 @@
         <div class="col mb-2 shadow-sm border-0">
           <div class="py-3">
             <span class="fa fa-address-card fa-fw"></span>
-            <a class="font-weight-bolder ml-3 badge badge-info text-white p-2">{{usuario.nome}}</a>
+            <span
+              class="font-weight-bolder rounded bg-info text-white ml-3 p-2 text-uppercase"
+              style="font-size:12px"
+            >{{usuario.nome}}</span>
           </div>
         </div>
         <li class="nav-item waves-effect waves-block">
@@ -21,7 +24,7 @@
           </router-link>
         </li>
         <li class="nav-item waves-effect">
-          <router-link class="nav-link" to="/">
+          <router-link class="nav-link" to="/dashboard">
             <span class="fa fa-exchange fa-fw"></span>
             <a class="ml-3">Configurações</a>
           </router-link>
